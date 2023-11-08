@@ -8,7 +8,7 @@ const apiKey = process.env.OPENAI_API_KEY;
 
 const max_tokens = 1024;
 
-async function generateTweets(mymbti, member, word) {
+async function generateResult(mymbti, member, word) {
   try {
     // Query database for related articles
     const result = await new Promise((resolve, reject) => {
@@ -55,7 +55,7 @@ async function generateTweets(mymbti, member, word) {
       }`,
     ];
 
-    const tweets = [];
+    const mbtiResult = [];
 
     for (const prompt of prompts) {
       const data = {
@@ -75,12 +75,12 @@ async function generateTweets(mymbti, member, word) {
       );
 
       // Extract generated tweets from API response
-      const tweet = response.data.choices[0].text.trim();
-      tweets.push(tweet);
+      const mbtiGen = response.data.choices[0].text.trim();
+      mbtiResult.push(mbtiGen);
     }
 
-    console.log(tweets);
-    return tweets;
+    console.log(mbtiResult);
+    return mbtiResult;
   } catch (error) {
     console.error("Error occurred during tweet generation:", error);
     return null;
@@ -89,11 +89,11 @@ async function generateTweets(mymbti, member, word) {
 
 
 
-async function insertArticle(tweets, mymbti, member, word, userId) {
+async function insertArticle(mbtiResult, mymbti, member, word, userId) {
   try {
     // Check that tweets is not null and has at least 3 elements
-    if (!tweets || tweets.length < 3) {
-      console.error("Invalid tweets array");
+    if (!mbtiResult || mbtiResult.length < 3) {
+      console.error("Invalid mbtiResult array");
       return;
     }
 
@@ -111,9 +111,9 @@ async function insertArticle(tweets, mymbti, member, word, userId) {
     generateId = generateResults[0].generate_id;
     generateId++;
 
-    const pros = tweets[0];
-    const cons = tweets[1];
-    const careful = tweets[2];
+    const pros = mbtiResult[0];
+    const cons = mbtiResult[1];
+    const careful = mbtiResult[2];
 
     await connection2.query(
       "INSERT INTO login.article (mymbti, member, word, pros, cons, careful, generate_id, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
@@ -124,4 +124,4 @@ async function insertArticle(tweets, mymbti, member, word, userId) {
   }
 }
 
-module.exports = { generateTweets, insertArticle };
+module.exports = { generateResult, insertArticle };

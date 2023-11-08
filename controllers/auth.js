@@ -157,47 +157,22 @@ exports.generate = async (req, res) => {
       // Handle the case where the token is not valid or doesn't exist
       return res.status(401).send("Unauthorized");
     }
-    const userId = decoded;
     const { mymbti, member, word } = req.body;
     console.log("generate");
-    const tweets = await gpt_service.generateTweets(mymbti, member, word);
+    const mbtiResult = await gpt_service.generateResult(mymbti, member, word);
 
-    if (!tweets || tweets.length < 3) {
-      console.log("트윗을 생성할 수 없습니다.");
+    if (!mbtiResult || mbtiResult.length < 3) {
+      console.log("결과를 생성할 수 없습니다.");
       return;
     }
 
     try {
-      await gpt_service.insertArticle(tweets, mymbti, member, word, decoded.id);
+      await gpt_service.insertArticle(mbtiResult, mymbti, member, word, decoded.id);
     } catch (error) {
-      console.error("tweets insert error:", error.message);
+      console.error("data insert error:", error.message);
     }
   } catch (error) {
-    console.error("트윗 생성 중 오류 발생:", error.message);
+    console.error("생성 중 오류 발생:", error.message);
   }
   return res.redirect("/result");
 };
-
-
-// exports.generate = async (req, res) => {
-//   try {
-//     const { mymbti, member, word } = req.body;
-//     console.log("generate");
-//     const tweets = await gpt_service.generateTweets(mymbti, member, word);
-
-//     if (!tweets || tweets.length < 3) {
-//       console.log("트윗을 생성할 수 없습니다.");
-//       return;
-//     }
-
-//     try {
-//       await gpt_service.insertArticle(tweets, mymbti, member, word);
-//     } catch (error) {
-//       console.error("tweets insert error :", error.message);
-//     }
-//   } catch (error) {
-//     console.error("트윗 생성 중 오류 발생:", error.message);
-//   }
-//   return res.redirect("/result");
-// };
-

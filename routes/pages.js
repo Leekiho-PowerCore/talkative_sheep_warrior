@@ -24,20 +24,6 @@ router.get('/login', (req, res) => {
     res.render('login');
 }); 
 
-router.get("/generate", async (req, res) => {
-    try {
-        console.log("router");
-
-      res.render("index", {});
-    } catch (error) {
-      console.error(
-        "Error while fetching article list and category list:",
-        error
-      );
-      res.status(500).send("Internal Server Error");
-    }
-  });
-
 router.get('/profile', authController.isLoggedIn, (req, res) => {
     if (req.user) {
         res.render('profile', {
