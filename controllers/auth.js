@@ -8,17 +8,17 @@ const connection2 = require("../configs/db-connection.js").connection2;
 
 exports.login = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { id, password } = req.body;
 
-    if (!email || !password) {
+    if (!id || !password) {
       return res.status(400).render("login", {
-        message: "Please provide an email and password",
+        message: "Please provide an id and password",
       });
     }
 
     connection.query(
-      "SELECT * FROM users WHERE email = ?",
-      [email],
+      "SELECT * FROM users WHERE id = ?",
+      [id],
       async (error, result) => {
         console.log(result);
         if (
@@ -27,15 +27,14 @@ exports.login = async (req, res) => {
           !(await bcrypt.compare(password, result[0].password))
         ) {
           res.status(401).render("login", {
-            message: "Email or Password is incorrect",
+            message: "Id or Password is incorrect",
           });
         } else {
-          const id = result[0].id;
+          const user_id = result[0].user_id;
 
-          const token = jwt.sign({ id }, process.env.JWT_SECRET, {
+          const token = jwt.sign({ user_id }, process.env.JWT_SECRET, {
             expiresIn: process.env.JWT_EXPIRES_IN,
           });
-          console.log("The token is " + token);
 
           const cookieOptions = {
             expires: new Date(
@@ -57,11 +56,11 @@ exports.login = async (req, res) => {
 exports.register = (req, res) => {
   console.log(req.body);
 
-  const { name, email, password, passwordConfirm } = req.body;
+  const { name, id, password, passwordConfirm, mbti,  age, sex} = req.body;
 
   connection.query(
-    "SELECT email FROM users WHERE email = ?",
-    [email],
+    "SELECT id FROM users WHERE id = ?",
+    [id],
     async (error, result) => {
       if (error) {
         console.log(error);
@@ -69,7 +68,7 @@ exports.register = (req, res) => {
 
       if (result.length > 0) {
         return res.render("register", {
-          message: "That email is already in use",
+          message: "That id is already in use",
         });
       } else if (password !== passwordConfirm) {
         return res.render("register", {
@@ -82,7 +81,7 @@ exports.register = (req, res) => {
 
       connection.query(
         "INSERT INTO users SET ?",
-        { name: name, email: email, password: hashedPassword },
+        { name: name, id: id, password: hashedPassword, mbti: mbti, age: age, sex: sex},
         (error, result) => {
           if (error) {
             console.log(error);
@@ -99,28 +98,23 @@ exports.register = (req, res) => {
 };
 
 exports.isLoggedIn = async (req, res, next) => {
-  console.log(req.cookies);
   if (req.cookies.jwt) {
     try {
-      // veriy the token
+      // 토큰 검증
       const decoded = await promisify(jwt.verify)(
         req.cookies.jwt,
         process.env.JWT_SECRET
       );
-      console.log(decoded);
-      console.log(decoded.id);
 
-      // check if the user still exists
+      // 사용자가 존재하는지 확인
       connection.query(
-        "SELECT * FROM users WHERE id = ?",
-        [decoded.id],
+        "SELECT * FROM users WHERE user_id = ?",
+        [decoded.user_id],
         (error, result) => {
-          //console.log(result);
-
-          if (!result) {
+          if (!result || result.length === 0) {
+            console.log(req.cookies.jwt);
             return next();
           }
-
           req.user = result[0];
           return next();
         }
@@ -130,9 +124,11 @@ exports.isLoggedIn = async (req, res, next) => {
       return next();
     }
   } else {
-    next(); // by this next function, the code keep goes on after the authController.isLoggedin is done and render the page
+    next();
   }
 };
+
+
 
 exports.logout = async (req, res) => {
   res.cookie("jwt", "logout", {
@@ -154,12 +150,12 @@ exports.generate = async (req, res) => {
       );
     }
     if (!decoded) {
-      // Handle the case where the token is not valid or doesn't exist
+      // Handle the case where the token is not valid or doesn't exist  
       return res.status(401).send("Unauthorized");
     }
-    const { mymbti, member, word } = req.body;
+    const { mbti, user_mbti, word } = req.body;
     console.log("generate");
-    const mbtiResult = await gpt_service.generateResult(mymbti, member, word);
+    const mbtiResult = await gpt_service.generateResult(mbti, user_mbti, word);
 
     if (!mbtiResult || mbtiResult.length < 3) {
       console.log("결과를 생성할 수 없습니다.");
@@ -167,7 +163,7 @@ exports.generate = async (req, res) => {
     }
 
     try {
-      await gpt_service.insertArticle(mbtiResult, mymbti, member, word, decoded.id);
+      await gpt_service.insertArticle(mbtiResult, mbti, user_mbti, word, decoded.id);
     } catch (error) {
       console.error("data insert error:", error.message);
     }

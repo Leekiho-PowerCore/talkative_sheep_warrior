@@ -3,7 +3,6 @@ require("dotenv").config();
 const connection2 = require("../configs/db-connection.js").connection2;
 const authController = require('../controllers/auth');
 
-
 const apiKey = process.env.OPENAI_API_KEY;
 
 const max_tokens = 1024;
@@ -13,7 +12,7 @@ async function generateResult(mymbti, member, word) {
     // Query database for related articles
     const result = await new Promise((resolve, reject) => {
       connection2.query(
-        `SELECT * FROM article WHERE mymbti = ? AND member = ? AND word = ?`,
+        `SELECT * FROM compatibility WHERE mbti = ? AND user_mbti = ? AND word = ?`,
         [mymbti, member, word],
         function (error, results) {
           if (error) reject(error);
@@ -21,14 +20,14 @@ async function generateResult(mymbti, member, word) {
         }
       );
     });
-    console.log("mymbti : ", mymbti);
-    console.log("member : ", member);
+    console.log("mymbti : ", mbti);
+    console.log("member : ", user_mbti);
     console.log("word : ", word);
     console.log(
       "SQL Query:",
       `
-    SELECT * FROM article
-    WHERE mymbti = '${mymbti}' AND member = '${member}' AND word = '${word}'
+    SELECT * FROM compatibility
+    WHERE mbti = '${mbti}' AND user_mbti = '${user_mbti}' AND word = '${word}'
 `
     );
 
@@ -40,17 +39,17 @@ async function generateResult(mymbti, member, word) {
 
     // Use the articles as references in your prompts
     const articleReferences = result
-      .map((row, index) => `참고문헌${index + 1}: ${row.article_title}`)
+      .map((row, index) => `참고문헌${index + 1}: ${row.compatibility_id}`)
       .join(", ");
 
     const prompts = [
-      `${mymbti}와 ${member}가 함께 ${word}을/를 할 때 장점을 존댓말로 3가지씩 쉽게 알려줘. ${
+      `${mbti}와 ${user_mbti}가 함께 ${word}을/를 할 때 장점을 존댓말로 3가지씩 쉽게 알려줘. ${
         articleReferences ? articleReferences : ""
       }`,
-      `${mymbti}와 ${member}가 함께 ${word}을/를 할 때 단점을 존댓말로 3가지씩 쉽게 알려줘. ${
+      `${mbti}와 ${user_mbti}가 함께 ${word}을/를 할 때 단점을 존댓말로 3가지씩 쉽게 알려줘. ${
         articleReferences ? articleReferences : ""
       }`,
-      `${mymbti}와 ${member}가 함께 ${word}을/를 할 때 조심해야 할 점을 존댓말로 3가지씩 쉽게 알려줘. ${
+      `${mbti}와 ${user_mbti}가 함께 ${word}을/를 할 때 조심해야 할 점을 존댓말로 3가지씩 쉽게 알려줘. ${
         articleReferences ? articleReferences : ""
       }`,
     ];
@@ -89,7 +88,7 @@ async function generateResult(mymbti, member, word) {
 
 
 
-async function insertArticle(mbtiResult, mymbti, member, word, userId) {
+async function insertArticle(mbtiResult, mbti, user_mbti, word, userId) {
   try {
     // Check that tweets is not null and has at least 3 elements
     if (!mbtiResult || mbtiResult.length < 3) {
@@ -98,7 +97,7 @@ async function insertArticle(mbtiResult, mymbti, member, word, userId) {
     }
 
     const generateQuery =
-      "SELECT MAX(generate_id) AS generate_id FROM login.article";
+      "SELECT MAX(compatibility_id) AS compatibility_id FROM compatibility";
     let generateId;
 
     const generateResults = await new Promise((resolve, reject) => {
@@ -108,7 +107,7 @@ async function insertArticle(mbtiResult, mymbti, member, word, userId) {
       });
     });
 
-    generateId = generateResults[0].generate_id;
+    generateId = generateResults[0].compatibiltiy_id;
     generateId++;
 
     const pros = mbtiResult[0];
@@ -116,8 +115,8 @@ async function insertArticle(mbtiResult, mymbti, member, word, userId) {
     const careful = mbtiResult[2];
 
     await connection2.query(
-      "INSERT INTO login.article (mymbti, member, word, pros, cons, careful, generate_id, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-      [mymbti, member, word, pros, cons, careful, generateId, userId]
+      "INSERT INTO compatibiltiy (mbti, user_mbti, word, advantages, warning, precaution, compatibility_id, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+      [mbti, user_mbti, word, advantages, warning, precaution, generateId, userId]
     );
   } catch (error) {
     console.error("Database insertion error:", error.message);

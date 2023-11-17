@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,7 +29,7 @@
                     </div>
                     <div class="card-body">
                         <h5 class="car-title">{{user.name}}</h5>
-                        <p class="card-text">놀러가고싶어</p>
+                        <p class="card-text">{{user.mbti}}</p>
                         <a href="#" class="btn btn-primary">{{user.email}}</a>
 
                     </div>
@@ -47,6 +46,13 @@
                         {{/each}}
                         <p class="card-text">This is you profile page.</p>
                         <a href="#" class="btn btn-primary">somewhere</a>
+                        <div class="mb-3">
+                            <input type="radio" name="sex" id="male"><label for="male">1</label>
+                            <input type="radio" name="sex" id="female"><label for="female">2</label>
+                            <input type="radio" name="sex" id="male"><label for="male">3</label>
+                            <input type="radio" name="sex" id="female"><label for="female">4</label>
+                            <input type="radio" name="sex" id="male"><label for="male">5</label>
+                        </div>
                     </div>
                     <div class="cart-footer text-muted">
                         Node MySQL - Project

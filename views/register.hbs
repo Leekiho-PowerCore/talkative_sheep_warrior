@@ -32,8 +32,8 @@
                         <input type="text" class="form-control" id="name" name="name">
                     </div>
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email Address</label>
-                        <input type="email" class="form-control" id="email" name="email">
+                        <label for="id" class="form-label">id</label>
+                        <input type="id" class="form-control" id="id" name="id">
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
@@ -43,13 +43,25 @@
                         <label for="passwordConfirm" class="form-label">Confirm Password</label>
                         <input type="password" class="form-control" id="passwordConfirm" name="passwordConfirm">
                     </div>
+                    <div class="mb-3">
+                        <label for="mbti" class="form-label">MBTI</label>
+                        <input type="mbti" class="form-control" id="mbti" name="mbti">
+                    </div>
+                    <div class="mb-3">
+                        <label for="age" class="form-label">age</label>
+                        <input type="age" class="form-control" id="age" name="age">
+                    </div>
+                    <div class="mb-3">
+                        <input type="radio" name="sex" id="male"><label for="male">Male</label>
+                        <input type="radio" name="sex" id="female"><label for="female">Female</label>
+                    </div>
                     <button type="submit" class="btn btn-primary">Register</button>
                 </form>
             </div>
         </div>
 
         {{#if message}}
-            <h4 class="alert alert-danger mt-4">{{message}}</h4>
+        <h4 class="alert alert-danger mt-4">{{message}}</h4>
         {{/if}}
     </div>
 

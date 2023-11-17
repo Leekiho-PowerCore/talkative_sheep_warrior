@@ -16,9 +16,6 @@ const methodOverride = require("method-override");
 
 app.use(methodOverride("_method"));
 
-//http://localhost:8888/phpMyAdmin5/index.php?lang=ko 이거 들어가면 db관리 가능
-
-
 const publicDirectory = path.join(__dirname, './public');
 app.use(express.static(publicDirectory));
 
@@ -44,7 +41,6 @@ connection.connect( (err) => {
 //define routes
 app.use('/', require('./routes/pages'));
 app.use('/auth', require('./routes/auth'));
-// app.use('/auth', require('./routes/auth'));
 app.use("/", express.static(__dirname + "/"));
 
 app.listen(3000, () => {
