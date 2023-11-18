@@ -34,6 +34,12 @@ router.get("/profile", authController.isLoggedIn, (req, res) => {
   }
 });
 
+router.get("/select", authController.isLoggedIn, (req, res) => {
+  res.render("select", {
+    user: req.user,
+  });
+});
+
 router.post("/generate", authController.generate);
 
 module.exports = router;
