@@ -7,29 +7,19 @@ const apiKey = process.env.OPENAI_API_KEY;
 
 const max_tokens = 1024;
 
-async function generateResult(mymbti, member, word) {
+async function generateResult(mbti, user_mbti, word) {
   try {
     // Query database for related articles
     const result = await new Promise((resolve, reject) => {
       connection2.query(
         `SELECT * FROM compatibility WHERE mbti = ? AND user_mbti = ? AND word = ?`,
-        [mymbti, member, word],
+        [mbti, user_mbti, word],
         function (error, results) {
           if (error) reject(error);
           else resolve(results);
         }
       );
     });
-    console.log("mymbti : ", mbti);
-    console.log("member : ", user_mbti);
-    console.log("word : ", word);
-    console.log(
-      "SQL Query:",
-      `
-    SELECT * FROM compatibility
-    WHERE mbti = '${mbti}' AND user_mbti = '${user_mbti}' AND word = '${word}'
-`
-    );
 
     if (!result || !Array.isArray(result) || result.length === 0) {
       console.error("No matching articles found in the database.");
@@ -96,27 +86,27 @@ async function insertArticle(mbtiResult, mbti, user_mbti, word, userId) {
       return;
     }
 
-    const generateQuery =
-      "SELECT MAX(compatibility_id) AS compatibility_id FROM compatibility";
-    let generateId;
+    // const generateQuery =
+    //   "SELECT MAX(compatibility_id) AS compatibility_id FROM compatibility";
+    // let generateId;
 
-    const generateResults = await new Promise((resolve, reject) => {
-      connection2.query(generateQuery, function (error, results) {
-        if (error) reject(error);
-        else resolve(results);
-      });
-    });
+    // const generateResults = await new Promise((resolve, reject) => {
+    //   connection2.query(generateQuery, function (error, results) {
+    //     if (error) reject(error);
+    //     else resolve(results);
+    //   });
+    // });
 
-    generateId = generateResults[0].compatibiltiy_id;
-    generateId++;
+    // generateId = generateResults[0].compatibiltiy_id;
+    // generateId++;
 
-    const pros = mbtiResult[0];
-    const cons = mbtiResult[1];
-    const careful = mbtiResult[2];
+    const advantage = mbtiResult[0];
+    const warning = mbtiResult[1];
+    const precaution = mbtiResult[2];
 
     await connection2.query(
-      "INSERT INTO compatibiltiy (mbti, user_mbti, word, advantages, warning, precaution, compatibility_id, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-      [mbti, user_mbti, word, advantages, warning, precaution, generateId, userId]
+      "INSERT INTO compatibility (mbti, user_mbti, word, advantage, warning, precaution, user_id) VALUES (?, ?, ?, ?, ?, ?, ?)",
+      [mbti, user_mbti, word, advantage, warning, precaution, userId]
     );
   } catch (error) {
     console.error("Database insertion error:", error.message);
