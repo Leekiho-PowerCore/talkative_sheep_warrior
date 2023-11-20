@@ -40,6 +40,12 @@ router.get("/select", authController.isLoggedIn, (req, res) => {
   });
 });
 
+router.get("/openkakao", authController.isLoggedIn, (req, res) => {
+  res.render("/openkakao", {
+    user: req.user,
+  });
+});
+
 router.post("/generate", authController.generate);
 
 module.exports = router;
