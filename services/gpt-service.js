@@ -76,8 +76,6 @@ async function generateResult(mbti, user_mbti, word) {
   }
 }
 
-
-
 async function insertArticle(mbtiResult, mbti, user_mbti, word, userId) {
   try {
     // Check that tweets is not null and has at least 3 elements

@@ -39,8 +39,7 @@ connection.connect( (err) => {
 });
 
 //define routes
-app.use('/', require('./routes/pages'));
-app.use('/auth', require('./routes/auth'));
+app.use("/", require("./controllers/pages"));
 app.use("/", express.static(__dirname + "/"));
 
 app.listen(3000, () => {
