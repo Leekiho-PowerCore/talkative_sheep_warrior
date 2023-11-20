@@ -83,7 +83,7 @@ async function insertArticle(mbtiResult, mbti, user_mbti, word, userId) {
       console.error("Invalid mbtiResult array");
       return;
     }
-
+    console.log(userId);
     // const generateQuery =
     //   "SELECT MAX(compatibility_id) AS compatibility_id FROM compatibility";
     // let generateId;

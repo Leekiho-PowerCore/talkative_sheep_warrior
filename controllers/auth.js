@@ -104,7 +104,7 @@ exports.isLoggedIn = async (req, res, next) => {
         req.cookies.jwt,
         process.env.JWT_SECRET
       );
-
+      console.log(decoded.id);
       // 사용자가 존재하는지 확인
       connection.query(
         "SELECT * FROM users WHERE user_id = ?",
@@ -150,6 +150,7 @@ exports.generate = async (req, res) => {
       // Handle the case where the token is not valid or doesn't exist  
       return res.status(401).send("Unauthorized");
     }
+    console.log(decoded.user_id);
     const { mbti, user_mbti, word } = req.body;
     console.log("generate");
     const mbtiResult = await gpt_service.generateResult(mbti, user_mbti, word);
@@ -160,7 +161,7 @@ exports.generate = async (req, res) => {
     }
 
     try {
-      await gpt_service.insertArticle(mbtiResult, mbti, user_mbti, word, decoded.id);
+      await gpt_service.insertArticle(mbtiResult, mbti, user_mbti, word, decoded.user_id);
     } catch (error) {
       console.error("data insert error:", error.message);
     }

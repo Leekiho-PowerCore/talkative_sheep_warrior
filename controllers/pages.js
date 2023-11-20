@@ -16,6 +16,7 @@ router.get("/register", (req, res) => {
 
 router.get("/result", filter.isLoggedIn, async (req, res) => {
   try {
+    console.log(req.user);
     const user_id = req.user.user_id;
     const userData = await authController.getUserDataByUserId(user_id);
     res.render("result", {
