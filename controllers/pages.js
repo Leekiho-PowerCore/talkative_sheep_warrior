@@ -47,15 +47,9 @@ router.get('/openkakao', filter.isLoggedIn, (req, res) => {
 });
 
 router.post("/generate", authController.generate);
-
 router.post('/register', authController.register);
-
 router.post('/login', authController.login);
-
 router.get('/logout', authController.logout);
-
-
-
 
 module.exports = router;
 
