@@ -169,3 +169,33 @@ exports.generate = async (req, res) => {
   }
   return res.redirect("/result");
 };
+
+exports.getOpenkakaoData = function() {
+  return new Promise((resolve, reject) => {
+    var sql = `SELECT * FROM openkakao`;
+    connection.query(sql, function (err, results) {
+      if (err) reject(err);
+      resolve(results);
+    });
+  });
+};
+
+exports.addOpenkakaoData = function(data) {
+  return new Promise((resolve, reject) => {
+    var sql = `INSERT INTO openkakao SET ?`;
+    connection.query(sql, data, function (err, results) {
+      if (err) reject(err);
+      resolve(results);
+    });
+  });
+};
+
+exports.addOpenkakaoData = function(data) {
+  return new Promise((resolve, reject) => {
+    var sql = `INSERT INTO openkakao SET ?`;
+    connection.query(sql, data, function (err, results) {
+      if (err) reject(err);
+      resolve(results);
+    });
+  });
+}

@@ -48,79 +48,29 @@
                 <div class="text-center mb-3">
                     <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">오픈카톡</span></h1>
                 </div>
+                <!-- Modal Trigger Button -->
+                <button type="button" class="btn btn-secondary mb-2" data-bs-toggle="modal" data-bs-target="#dataInputModal">
+                    내 링크 만들기
+                </button>
                 <div class="row gx-5 justify-content-center">
                     <div class="col-lg-11 col-xl-9 col-xxl-8">
                         <!-- Project Card 1-->
+                        {{#each items}}
                         <div class="card overflow-hidden shadow rounded-4 border-0 mb-3">
                             <div class="card-body p-0">
                                 <div class="d-flex align-items-center">
                                     <div class="p-1">
                                         <div class="card-body">
-                                            <h3 class="card-title">한줄소개</h5>
-                                                <p class="card-text">MBTI / 카테고리</p>
-                                                <a href="#" class="btn btn-primary">카톡방으로 이동</a>
+                                            <h3 class="card-title">{{this.intro}}</h5>
+                                                <p class="card-text">{{this.mbti}} / {{this.main_category}}</p>
+                                                <a href="{{this.kakao_address}}" class="btn btn-primary">카톡방으로 이동</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!--임시-->
-                        <div class="card overflow-hidden shadow rounded-4 border-0 mb-3">
-                            <div class="card-body p-0">
-                                <div class="d-flex align-items-center">
-                                    <div class="p-1">
-                                        <div class="card-body">
-                                            <h3 class="card-title">한줄소개</h5>
-                                                <p class="card-text">MBTI / 카테고리</p>
-                                                <a href="#" class="btn btn-primary">카톡방으로 이동</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--임시-->
-                        <div class="card overflow-hidden shadow rounded-4 border-0 mb-3">
-                            <div class="card-body p-0">
-                                <div class="d-flex align-items-center">
-                                    <div class="p-1">
-                                        <div class="card-body">
-                                            <h3 class="card-title">한줄소개</h5>
-                                                <p class="card-text">MBTI / 카테고리</p>
-                                                <a href="#" class="btn btn-primary">카톡방으로 이동</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--임시-->
-                        <div class="card overflow-hidden shadow rounded-4 border-0 mb-3">
-                            <div class="card-body p-0">
-                                <div class="d-flex align-items-center">
-                                    <div class="p-1">
-                                        <div class="card-body">
-                                            <h3 class="card-title">한줄소개</h5>
-                                                <p class="card-text">MBTI / 카테고리</p>
-                                                <a href="#" class="btn btn-primary">카톡방으로 이동</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--임시-->
-                        <div class="card overflow-hidden shadow rounded-4 border-0 mb-3">
-                            <div class="card-body p-0">
-                                <div class="d-flex align-items-center">
-                                    <div class="p-1">
-                                        <div class="card-body">
-                                            <h3 class="card-title">한줄소개</h5>
-                                                <p class="card-text">MBTI / 카테고리</p>
-                                                <a href="#" class="btn btn-primary">카톡방으로 이동</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-    
+                        {{/each}}
+
                         <!--페이지네이터-->
                         <nav aria-label="...">
                             {{#with paginator}}
@@ -170,6 +120,43 @@
             </div>
         </section>
     </main>
+
+    <!-- Modal -->
+    <div class="modal fade" id="dataInputModal" tabindex="-1" aria-labelledby="dataInputModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="dataInputModalLabel">내 링크 만들기</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/addData" method="POST">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="intro" class="form-label">한줄소개:</label>
+                            <input type="text" class="form-control" id="intro" name="intro" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="mbti" class="form-label">MBTI:</label>
+                            <input type="text" class="form-control" id="mbti" name="mbti" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="main_category" class="form-label">카테고리:</label>
+                            <input type="text" class="form-control" id="main_category" name="main_category" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="kakao_address" class="form-label">오픈카톡 주소:</label>
+                            <input type="text" class="form-control" id="kakao_address" name="kakao_address" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <input type="submit" value="Submit" class="btn btn-primary">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer-->
     <footer class="bg-white py-4 mt-auto">
         <div class="container px-5">

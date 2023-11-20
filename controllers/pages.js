@@ -40,10 +40,46 @@ router.get("/select", filter.isLoggedIn, (req, res) => {
   });
 });
 
-router.get('/openkakao', filter.isLoggedIn, (req, res) => {
-  res.render("openkakao", {
-    user: req.user,
-  });
+router.get('/openkakao', filter.isLoggedIn, async (req, res) => {
+  try {
+    const results = await authController.getOpenkakaoData();
+    res.render("openkakao", {
+      items: results,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
+});
+
+//오픈카톡디비에서 가져오기
+router.post('/openkakao', filter.isLoggedIn, async (req, res) => {
+  try {
+    const data = req.body; // 요청 본문에서 데이터를 가져옵니다.
+    const results = await authController.addOpenkakaoData(data);
+    res.status(200).send('Data inserted successfully');
+  } catch(err) {
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
+});
+
+//오픈카톡디비에 추가하기
+router.post('/addData', async (req, res) => {
+  const data = {
+    mbti: req.body.mbti,
+    main_category: req.body.main_category,
+    kakao_address: req.body.kakao_address,
+    intro: req.body.intro
+  };
+  
+  try {
+    await authController.addOpenkakaoData(data);
+    res.redirect('/openkakao'); // 데이터 추가 후 원하는 페이지로 리다이렉트
+  } catch(err) {
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
 });
 
 router.post("/generate", authController.generate);
