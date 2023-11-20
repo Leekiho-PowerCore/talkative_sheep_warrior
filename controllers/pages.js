@@ -14,10 +14,18 @@ router.get("/register", (req, res) => {
   res.render("register");
 });
 
-router.get("/result", filter.isLoggedIn, (req, res) => {
-  res.render("result", {
-    user: req.user,
-  });
+router.get("/result", filter.isLoggedIn, async (req, res) => {
+  try {
+    const user_id = req.user.user_id;
+    const userData = await authController.getUserDataByUserId(user_id);
+    res.render("result", {
+      user: req.user,
+      compatibility: userData[0],
+    });
+  } catch(err) {
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
 });
 
 router.get("/login", (req, res) => {

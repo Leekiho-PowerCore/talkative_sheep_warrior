@@ -198,4 +198,14 @@ exports.addOpenkakaoData = function(data) {
       resolve(results);
     });
   });
+};
+
+exports.getUserDataByUserId = function(user_id) {
+  return new Promise((resolve, reject) => {
+    var sql = `SELECT * FROM compatibility WHERE user_id = ? ORDER BY compatibility_id DESC LIMIT 1`;
+    connection.query(sql, [user_id], function (err, results) {
+      if (err) reject(err);
+      resolve(results); 
+    });
+  });
 }
