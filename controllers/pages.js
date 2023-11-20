@@ -2,7 +2,6 @@ const express = require("express");
 const authController = require("./auth");
 const { decode } = require("jsonwebtoken");
 const filter = require("../filter/filter");
-
 const router = express.Router();
 
 router.get("/", filter.isLoggedIn, (req, res) => {
@@ -50,3 +49,4 @@ router.post('/login', authController.login);
 router.get('/logout', authController.logout);
 
 module.exports = router;
+

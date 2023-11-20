@@ -4,7 +4,6 @@ const { promisify } = require("util");
 const { decode } = require("punycode");
 const gpt_service = require("../services/gpt-service.js");
 const connection = require("../configs/db-connection.js").connection;
-const connection2 = require("../configs/db-connection.js").connection2;
 
 exports.login = async (req, res) => {
   try {
@@ -127,8 +126,6 @@ exports.isLoggedIn = async (req, res, next) => {
     next();
   }
 };
-
-
 
 exports.logout = async (req, res) => {
   res.cookie("jwt", "logout", {
