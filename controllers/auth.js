@@ -4,6 +4,7 @@ const { promisify } = require("util");
 const { decode } = require("punycode");
 const gpt_service = require("../services/gpt-service.js");
 const connection = require("../configs/db-connection.js").connection;
+const connection2 = require("../configs/db-connection.js").connection2;
 
 exports.login = async (req, res) => {
   try {
@@ -208,5 +209,81 @@ exports.getUserDataByUserId = function(user_id) {
       if (err) reject(err);
       resolve(results); 
     });
+  });
+}
+
+
+
+exports.score = async (req, res) => {
+  let decoded;
+  const { score } = req.body;
+  if (req.cookies.jwt) {
+    // Verify the token
+    decoded = await promisify(jwt.verify)(
+      req.cookies.jwt,
+      process.env.JWT_SECRET
+    );
+  }
+
+  // Check if score and user_id are valid
+  if (score == null || isNaN(score) || !decoded || !decoded.user_id) {
+    console.error("Invalid score or user_id");
+    return res.status(400).send("Invalid score or user_id");
+  }
+
+  const sql = `
+    UPDATE compatibility
+    SET score = ?
+    WHERE compatibility_id = (
+      SELECT compatibility_id
+      FROM (
+        SELECT compatibility_id
+        FROM compatibility
+        WHERE user_id = ?
+        ORDER BY compatibility_id DESC
+        LIMIT 1
+      ) tmp
+    )
+  `;
+
+  connection2.query(sql, [score, decoded.user_id], function (error, results, fields) {
+    if (error) {
+      console.error("Database update error:", error.message);
+      return res.status(500).send("Database update error");
+    }
+
+    const getCompatibilityIdSql = `
+      SELECT compatibility_id
+      FROM compatibility
+      WHERE user_id = ?
+      ORDER BY compatibility_id DESC
+      LIMIT 1
+    `;
+
+    connection2.query(getCompatibilityIdSql, [decoded.user_id], function (getIdError, getIdResults, getIdFields) {
+      if (getIdError) {
+        console.error("Database get ID error:", getIdError.message);
+        return res.status(500).send("Database get ID error");
+      }
+
+      // If score is 4 or 5, copy all data from this compatibility_id to another table
+      if (score == 4 || score == 5) {
+        const copySql = `
+          INSERT INTO rating
+          SELECT * FROM compatibility
+          WHERE compatibility_id = ?
+        `;
+
+        connection2.query(copySql, [getIdResults[0].compatibility_id], function (copyError, copyResults, copyFields) {
+          if (copyError) {
+            console.error("Database copy error:", copyError.message);
+            return res.status(500).send("Database copy error");
+          }
+        });
+      }
+    });
+    
+    // If successful, redirect to result page
+    res.redirect('/result');
   });
 }
