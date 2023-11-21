@@ -2,9 +2,9 @@ const connection = require("../configs/db-connection.js").connection;
 const paginator_util = require("../utils/paginator.js");
 
 const perPage = 15;
-const offset = (page - 1) * perPage;
 
 async function getUserList(page) {
+	const offset = (page - 1) * perPage;
 	try {
 		const [rows, totalCountRows] = await Promise.all([
 			new Promise((resolve, reject) => {
@@ -42,11 +42,11 @@ async function getUserList(page) {
 		return { rows, paginator };
 	} catch (error) {
 		console.log("getUserList error: ", error.message);
-		throw error;
 	}
 }
 
 async function getCompatibilityList(page) {
+	const offset = (page - 1) * perPage;
 	try {
 		const [rows, totalCountRows] = await Promise.all([
 			new Promise((resolve, reject) => {
@@ -84,11 +84,11 @@ async function getCompatibilityList(page) {
 		return { rows, paginator };
 	} catch (error) {
 		console.log("getCompatibilityList error: ", error.message);
-		throw error;
 	}
 }
 
 async function getCategoryList(page) {
+	const offset = (page - 1) * perPage;
 	try {
 		const [rows, totalCountRows] = await Promise.all([
 			new Promise((resolve, reject) => {
@@ -126,11 +126,11 @@ async function getCategoryList(page) {
 		return { rows, paginator };
 	} catch (error) {
 		console.log("getCategoryList error:", error.message);
-		throw error;
 	}
 }
 
 async function getOpenkakaoList(page) {
+	const offset = (page - 1) * perPage;
 	try {
 		const [rows, totalCountRows] = await Promise.all([
 			new Promise((resolve, reject) => {
@@ -168,11 +168,11 @@ async function getOpenkakaoList(page) {
 		return { rows, paginator };
 	} catch (error) {
 		console.log("getOpenkakaoList error: ", error.message);
-		throw error;
 	}
 }
 
 async function getTopList(page) {
+	const offset = (page - 1) * perPage;
 	try {
 		const [rows, totalCountRows] = await Promise.all([
 			new Promise((resolve, reject) => {
@@ -210,7 +210,6 @@ async function getTopList(page) {
 		return { rows, paginator };
 	} catch (error) {
 		console.log("getTopList error:", error.message);
-		throw error;
 	}
 }
 

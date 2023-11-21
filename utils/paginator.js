@@ -32,6 +32,8 @@ function createPaginator(totalCount, page, perPage = 10) {
 		isFirstPage,
 		isLastPage,
 	};
+
+	//console.log("paginatior.js: ", paginator);
 	return paginator;
 }
 module.exports = { createPaginator };
