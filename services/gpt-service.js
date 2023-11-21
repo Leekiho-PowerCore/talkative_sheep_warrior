@@ -93,7 +93,7 @@ async function generateResult(mbti, user_mbti, word) {
 					{ role: "assistant", content: assistantMessage },
 					{ role: "user", content: prompt },
 				],
-				model: "gpt-3.5-turbo",
+				model: "gpt-3.5-turbo-1106",
 				max_tokens: max_tokens,
 			});
 
