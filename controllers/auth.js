@@ -224,7 +224,7 @@ exports.score = async (req, res) => {
       process.env.JWT_SECRET
     );
   }
-
+  console.log(score);
   // Check if score and user_id are valid
   if (score == null || isNaN(score) || !decoded || !decoded.user_id) {
     console.error("Invalid score or user_id");
@@ -248,6 +248,7 @@ exports.score = async (req, res) => {
 
   connection2.query(sql, [score, decoded.user_id], function (error, results, fields) {
     if (error) {
+      console.log(score);
       console.error("Database update error:", error.message);
       return res.status(500).send("Database update error");
     }
@@ -286,4 +287,21 @@ exports.score = async (req, res) => {
     // If successful, redirect to result page
     res.redirect('/result');
   });
-}
+};
+
+exports.updateProfile = async (req, res) => {
+  const { name, mbti, age, sex } = req.body;
+
+  connection.query(
+    "UPDATE users SET name = ?, mbti = ?, age = ?, sex = ? WHERE user_id = ?",
+    [name, mbti, age, sex, req.user.user_id],
+    (error, results) => {
+      if (error) {
+        console.log(error);
+        return res.status(500).send("Database update error");
+      }
+
+      res.status(200).redirect("/profile");
+    }
+  );
+};

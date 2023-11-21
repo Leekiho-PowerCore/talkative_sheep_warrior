@@ -91,6 +91,8 @@ router.post('/addData', async (req, res) => {
   }
 });
 
+router.post('/update-profile', filter.isLoggedIn, authController.updateProfile);
+
 router.post("/generate", authController.generate);
 
 router.post('/register', authController.register);
