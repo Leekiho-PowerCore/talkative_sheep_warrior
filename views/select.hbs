@@ -8,263 +8,268 @@
   <meta name="author" content="" />
   <title>Personal - Start Bootstrap Template</title>
   <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <!-- Custom Google font-->
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-      <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
-        rel="stylesheet" />
-      <!-- Bootstrap icons-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-          <link href="css/styles.css" rel="stylesheet" />
-          <style>
-            .custom-button {
-              transition: transform 1.0s;
-            }
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+  <!-- Custom Google font-->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+    rel="stylesheet" />
+  <!-- Bootstrap icons-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
+  <!-- Core theme CSS (includes Bootstrap)-->
+  <link href="css/styles.css" rel="stylesheet" />
+  <style>
+    .custom-button {
+      transition: transform 1.0s;
+    }
 
-            .custom-button:hover {
-              transform: scale(1.03);
-              box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
-            }
-          </style>
+    .custom-button:hover {
+      transform: scale(1.03);
+      box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    }
+  </style>
 </head>
 
 <body class="d-flex flex-column h-100 bg-light">
   <main class="flex-shrink-0">
     <!-- Navigation-->
-      <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
-        <div class="container px-5">
-          <a class="navbar-brand" href="index.html"><span class="fw-bolder text-primary">Start
-              Bootstrap</span></a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-            aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
-              <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-              <li class="nav-item"><a class="nav-link" href="resume.html">Resume</a></li>
-              <li class="nav-item"><a class="nav-link" href="projects.html">Projects</a></li>
-              <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-      <!-- Page Content-->
-        <div class="container px-5 my-5">
-          <div class="row gx-5 justify-content-center">
-            <!-- Experience Section-->
-              <section>
-                <div class="d-flex align-items-center justify-content-between mb-4">
-                  <h2 class="text-primary fw-bolder mb-0">Experience</h2>
-                  <!-- Download resume button-->
-                    <!--Note: Set the link href target to a PDF file within your project-->
-                      <a class="btn btn-primary px-4 py-3"
-                        href="https://www.16personalities.com/ko/%EB%AC%B4%EB%A3%8C-%EC%84%B1%EA%B2%A9-%EC%9C%A0%ED%98%95-%EA%B2%80%EC%82%AC">
-                        <div class="d-inline-block me-2"></div>
-                        MBTI 테스트
-                      </a>
-                </div>
-                <!--my mbti Card 1-->
-                  <form action="/generate" method="POST">
-                    <div class="row">
-                      <div class="m-2 col card shadow border-0 rounded-4 mb-5">
-                        <div class="card-body p-5 d-flex justify-content-center align-items-center">
-                          <div class="row align-items-center gx-5">
-                            <div class="col text-center text-lg-start mb-4 mb-lg-0">
-                              <div class="p-4 rounded-4">
-
-                                <h4 class="text-center mb-4 text-gradient"><strong>내 MBTI</strong></h4>
-                                <div class="form-group">
-                                  <img id="mbtiImg" name="mbtiImg" class="form-control border-0"
-                                    src="../{{user.mbti}}.png" readonly>
-                                  <input type="hidden" id="mbti" name="mbti" value={{user.mbti}}>
-
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <!--my mbti Card 2-->
-                        <div class="m-2 col card shadow border-0 rounded-4 mb-5">
-                          <div class="card-body p-5 d-flex justify-content-center align-items-center">
-                            <div class="row align-items-center gx-5">
-                              <div class="col text-center text-lg-start mb-4 mb-lg-0">
-                                <div class="p-4 rounded-4">
-
-                                  <h4 class="text-center mb-4 text-gradient"><strong>상대 MBTI</strong></h4>
-                                  <div class="form-group">
-                                    <img id="user_mbti_image" alt="Please select a MBTI type">
-                                    <input type="hidden" id="user_mbti" name="user_mbti">
-                                  </div>
-                                  <div class="form-group">
-                                    <label for="word">Word:</label>
-                                    <input type="text" id="word" name="word" class="form-control"
-                                      placeholder="Enter a word" required>
-                                  </div>
-                                  <button type="submit" class="btn btn-primary">Submit</button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                    </div>
-                  </form>
-          </div>
-          <!-- Skills Section-->
-            <section>
-              <!-- Skillset Card-->
-                <div class="card shadow border-0 rounded-4 mb-5">
-                  <div class="card-body p-5">
-                    <!-- Professional skills list-->
-                      <div class="mb-5">
-                        <div class="d-flex align-items-center mb-lg-4 mb-4">
-                          <div class="feature bg-primary bg-gradient-primary-to-secondary text-white rounded-3 me-3">
-                            <i class="bi bi-tools"></i>
-                          </div>
-                          <h3 class="fw-bolder mb-0"><span class="text-gradient d-inline">Extraversion(외향적)</span></h3>
-                        </div>
-                        <div class="row row-cols-md-4 mb-lg-4">
-                          <div class="col mb-4 mb-md-0">
-                            <div
-                              class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
-                              ENFJ</div>
-                          </div>
-                          <div class="col mb-4 mb-md-0">
-                            <div
-                              class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
-                              ENTP</div>
-                          </div>
-                          <div class="col mb-4 mb-md-0">
-                            <div
-                              class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
-                              ENFP</div>
-                          </div>
-                          <div class="col mb-4 mb-md-0">
-                            <div
-                              class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
-                              ENTJ</div>
-                          </div>
-                        </div>
-                        <div class="row row-cols-md-4">
-                          <div class="col mb-4 mb-md-0">
-                            <div
-                              class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
-                              ESFJ</div>
-                          </div>
-                          <div class="col mb-4 mb-md-0">
-                            <div
-                              class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
-                              ESFP</div>
-                          </div>
-                          <div class="col mb-4 mb-md-0">
-                            <div
-                              class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
-                              ESTJ</div>
-                          </div>
-                          <div class="col mb-4 mb-md-0">
-                            <div
-                              class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
-                              ESTP</div>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- Languages list-->
-                        <div class="mb-0">
-                          <div class="d-flex align-items-center mb-4">
-                            <div class="feature bg-primary bg-gradient-primary-to-secondary text-white rounded-3 me-3">
-                              <i class="bi bi-code-slash"></i>
-                            </div>
-                            <h3 class="fw-bolder mb-0"><span class="text-gradient d-inline">Introversion(내향적)</span>
-                            </h3>
-                          </div>
-                          <div class="row row-cols-md-4 mb-lg-4">
-                            <div class="col mb-4 mb-md-0">
-                              <div
-                                class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
-                                INFJ</div>
-                            </div>
-                            <div class="col mb-4 mb-md-0">
-                              <div
-                                class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
-                                INFP</div>
-                            </div>
-                            <div class="col mb-4 mb-md-0">
-                              <div
-                                class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
-                                INTJ</div>
-                            </div>
-                            <div class="col mb-4 mb-md-0">
-                              <div
-                                class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
-                                INTP</div>
-                            </div>
-                          </div>
-                          <div class="row row-cols-md-4">
-                            <div class="col mb-4 mb-md-0">
-                              <div
-                                class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
-                                ISFJ</div>
-                            </div>
-                            <div class="col mb-4 mb-md-0">
-                              <div
-                                class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
-                                ISFP</div>
-                            </div>
-                            <div class="col mb-4 mb-md-0">
-                              <div
-                                class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
-                                ISTJ</div>
-                            </div>
-                            <div class="col mb-4 mb-md-0">
-                              <div
-                                class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
-                                ISTP</div>
-                            </div>
-                          </div>
-                        </div>
-                  </div>
-                </div>
-            </section>
-        </div>
-        </div>
-        </div>
-  </main>
-    <footer class="bg-white py-4 mt-auto">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
       <div class="container px-5">
-        <div class="row align-items-center justify-content-between flex-column flex-sm-row">
-          <div class="col-auto">
-            <div class="small m-0">Copyright &copy; Your Website 2023</div>
-          </div>
-          <div class="col-auto">
-            <a class="small" href="#!">Privacy</a>
-            <span class="mx-1">&middot;</span>
-            <a class="small" href="#!">Terms</a>
-            <span class="mx-1">&middot;</span>
-            <a class="small" href="#!">Contact</a>
-          </div>
+        <a class="navbar-brand" href="/"><span class="fw-bolder text-primary">Start Bootstrap</span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+            class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
+            <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="/result">결과</a></li>
+            {{#if user }}
+            <li class="nav-item"><a class="nav-link" href="/profile">Profile</a></li>
+            <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+            {{else}}
+            <li class="nav-item"><a class="nav-link" href="/login">login</a></li>
+            <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
+            {{/if}}
+          </ul>
         </div>
       </div>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/scripts.js"></script>
-    <script>
-      window.onload = function () {
-        var mbtiButtons = document.querySelectorAll('.custom-button');
-        var userMbtiImage = document.querySelector('#user_mbti_image');
-        var inputField = document.querySelector('#user_mbti');
+    </nav>
+    <!-- Page Content-->
+    <div class="container px-5 my-5">
+      <div class="row gx-5 justify-content-center">
+        <!-- Experience Section-->
+        <section>
+          <div class="d-flex align-items-center justify-content-between mb-4">
+            <h2 class="text-primary fw-bolder mb-0">Experience</h2>
+            <!-- Download resume button-->
+            <!--Note: Set the link href target to a PDF file within your project-->
+            <a class="btn btn-primary px-4 py-3"
+              href="https://www.16personalities.com/ko/%EB%AC%B4%EB%A3%8C-%EC%84%B1%EA%B2%A9-%EC%9C%A0%ED%98%95-%EA%B2%80%EC%82%AC">
+              <div class="d-inline-block me-2"></div>
+              MBTI 테스트
+            </a>
+          </div>
+          <!--my mbti Card 1-->
+          <form action="/generate" method="POST">
+            <div class="row">
+              <div class="m-2 col card shadow border-0 rounded-4 mb-5">
+                <div class="card-body p-5 d-flex justify-content-center align-items-center">
+                  <div class="row align-items-center gx-5">
+                    <div class="col text-center text-lg-start mb-4 mb-lg-0">
+                      <div class="p-4 rounded-4">
 
-        mbtiButtons.forEach(function (button) {
-          button.addEventListener('click', function (event) {
-            var mbtiType = event.target.innerText;
-            userMbtiImage.src = `../public/${mbtiType}.png`;
-            userMbtiImage.alt = mbtiType;
-            inputField.value = mbtiType;
-          });
+                        <h4 class="text-center mb-4 text-gradient"><strong>내 MBTI</strong></h4>
+                        <div class="form-group">
+                          <img id="mbtiImg" name="mbtiImg" class="form-control border-0" src="../{{user.mbti}}.png"
+                            readonly>
+                          <input type="hidden" id="mbti" name="mbti" value={{user.mbti}}>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--my mbti Card 2-->
+              <div class="m-2 col card shadow border-0 rounded-4 mb-5">
+                <div class="card-body p-5 d-flex justify-content-center align-items-center">
+                  <div class="row align-items-center gx-5">
+                    <div class="col text-center text-lg-start mb-4 mb-lg-0">
+                      <div class="p-4 rounded-4">
+
+                        <h4 class="text-center mb-4 text-gradient"><strong>상대 MBTI</strong></h4>
+                        <div class="form-group">
+                          <img id="user_mbti_image" alt="Please select a MBTI type">
+                          <input type="hidden" id="user_mbti" name="user_mbti">
+                        </div>
+                        <div class="form-group">
+                          <label for="word">Word:</label>
+                          <input type="text" id="word" name="word" class="form-control" placeholder="Enter a word"
+                            required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+      </div>
+      <!-- Skills Section-->
+      <section>
+        <!-- Skillset Card-->
+        <div class="card shadow border-0 rounded-4 mb-5">
+          <div class="card-body p-5">
+            <!-- Professional skills list-->
+            <div class="mb-5">
+              <div class="d-flex align-items-center mb-lg-4 mb-4">
+                <div class="feature bg-primary bg-gradient-primary-to-secondary text-white rounded-3 me-3">
+                  <i class="bi bi-tools"></i>
+                </div>
+                <h3 class="fw-bolder mb-0"><span class="text-gradient d-inline">Extraversion(외향적)</span></h3>
+              </div>
+              <div class="row row-cols-md-4 mb-lg-4">
+                <div class="col mb-4 mb-md-0">
+                  <div
+                    class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
+                    ENFJ</div>
+                </div>
+                <div class="col mb-4 mb-md-0">
+                  <div
+                    class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
+                    ENTP</div>
+                </div>
+                <div class="col mb-4 mb-md-0">
+                  <div
+                    class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
+                    ENFP</div>
+                </div>
+                <div class="col mb-4 mb-md-0">
+                  <div
+                    class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
+                    ENTJ</div>
+                </div>
+              </div>
+              <div class="row row-cols-md-4">
+                <div class="col mb-4 mb-md-0">
+                  <div
+                    class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
+                    ESFJ</div>
+                </div>
+                <div class="col mb-4 mb-md-0">
+                  <div
+                    class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
+                    ESFP</div>
+                </div>
+                <div class="col mb-4 mb-md-0">
+                  <div
+                    class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
+                    ESTJ</div>
+                </div>
+                <div class="col mb-4 mb-md-0">
+                  <div
+                    class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
+                    ESTP</div>
+                </div>
+              </div>
+            </div>
+            <!-- Languages list-->
+            <div class="mb-0">
+              <div class="d-flex align-items-center mb-4">
+                <div class="feature bg-primary bg-gradient-primary-to-secondary text-white rounded-3 me-3">
+                  <i class="bi bi-code-slash"></i>
+                </div>
+                <h3 class="fw-bolder mb-0"><span class="text-gradient d-inline">Introversion(내향적)</span>
+                </h3>
+              </div>
+              <div class="row row-cols-md-4 mb-lg-4">
+                <div class="col mb-4 mb-md-0">
+                  <div
+                    class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
+                    INFJ</div>
+                </div>
+                <div class="col mb-4 mb-md-0">
+                  <div
+                    class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
+                    INFP</div>
+                </div>
+                <div class="col mb-4 mb-md-0">
+                  <div
+                    class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
+                    INTJ</div>
+                </div>
+                <div class="col mb-4 mb-md-0">
+                  <div
+                    class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
+                    INTP</div>
+                </div>
+              </div>
+              <div class="row row-cols-md-4">
+                <div class="col mb-4 mb-md-0">
+                  <div
+                    class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
+                    ISFJ</div>
+                </div>
+                <div class="col mb-4 mb-md-0">
+                  <div
+                    class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
+                    ISFP</div>
+                </div>
+                <div class="col mb-4 mb-md-0">
+                  <div
+                    class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
+                    ISTJ</div>
+                </div>
+                <div class="col mb-4 mb-md-0">
+                  <div
+                    class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
+                    ISTP</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    </div>
+    </div>
+  </main>
+  <footer class="bg-white py-4 mt-auto">
+    <div class="container px-5">
+      <div class="row align-items-center justify-content-between flex-column flex-sm-row">
+        <div class="col-auto">
+          <div class="small m-0">Copyright &copy; Your Website 2023</div>
+        </div>
+        <div class="col-auto">
+          <a class="small" href="#!">Privacy</a>
+          <span class="mx-1">&middot;</span>
+          <a class="small" href="#!">Terms</a>
+          <span class="mx-1">&middot;</span>
+          <a class="small" href="#!">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/scripts.js"></script>
+  <script>
+    window.onload = function () {
+      var mbtiButtons = document.querySelectorAll('.custom-button');
+      var userMbtiImage = document.querySelector('#user_mbti_image');
+      var inputField = document.querySelector('#user_mbti');
+
+      mbtiButtons.forEach(function (button) {
+        button.addEventListener('click', function (event) {
+          var mbtiType = event.target.innerText;
+          userMbtiImage.src = `../public/${mbtiType}.png`;
+          userMbtiImage.alt = mbtiType;
+          inputField.value = mbtiType;
         });
-      };
-    </script>
-  </body>
+      });
+    };
+  </script>
+</body>
+
 </html>
