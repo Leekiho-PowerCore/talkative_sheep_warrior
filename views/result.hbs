@@ -81,7 +81,8 @@
                             <!-- MBTI 및 호환성 바 -->
                             <h3>내 MBTI: {{compatibility.mbti}}</h3>
                             <h3>상대 MBTI: {{compatibility.user_mbti}}</h3>
-                            <div class="compatibility-bar mb-5 mt-5" style="width: 60%;"></div>
+                            <div class="compatibility-bar mb-5 mt-5" style="width: {{compatibility.rate}}%;"></div>
+                            <h3>{{compatibility.rate}}%</h3>
 
                             <div class="col">
                                 <div class="row">
@@ -91,7 +92,7 @@
                                         </div>
                                         <div class="card-body">
                                             <ul class="list-unstyled mt-3 mb-4">
-                                                <li>{{compatibility.advantage}}</li>
+                                                <li>{{{compatibility.advantage}}}</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -103,7 +104,7 @@
                                         </div>
                                         <div class="card-body">
                                             <ul class="list-unstyled mt-3 mb-4">
-                                                <li>{{compatibility.precaution}}</li>
+                                                <li>{{{compatibility.precaution}}}</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -115,7 +116,7 @@
                                         </div>
                                         <div class="card-body">
                                             <ul class="list-unstyled mt-3 mb-4">
-                                                <li>{{compatibility.warning}}</li>
+                                                <li>{{{compatibility.warning}}}</li>
                                             </ul>
                                         </div>
                                     </div>
