@@ -224,7 +224,7 @@ exports.score = async (req, res) => {
       process.env.JWT_SECRET
     );
   }
-
+  console.log(score);
   // Check if score and user_id are valid
   if (score == null || isNaN(score) || !decoded || !decoded.user_id) {
     console.error("Invalid score or user_id");
@@ -248,6 +248,7 @@ exports.score = async (req, res) => {
 
   connection2.query(sql, [score, decoded.user_id], function (error, results, fields) {
     if (error) {
+      console.log(score);
       console.error("Database update error:", error.message);
       return res.status(500).send("Database update error");
     }

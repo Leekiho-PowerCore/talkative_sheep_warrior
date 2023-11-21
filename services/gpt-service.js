@@ -35,13 +35,17 @@ async function generateResult(mbti, user_mbti, word) {
       const prompts = [
         `MBTI 유형이 ${mbti}인 사람과 ${user_mbti}인 사람이 ${word}을/를 함께 할 때, 그들의 협력에서 발생할 수 있는 장점을 존댓말로 세 가지를 구체적인 예시와 함께 알려주세요. ${
           articleReferences ? articleReferences : ""
-        }`,
+        }`, 
         `이번에는 반대로, ${mbti}와 ${user_mbti}가 ${word}을/를 함께 할 때, 그들의 협력에서 나타날 수 있는 단점을 존댓말로 세 가지를 구체적인 예시와 함께 알려주세요. ${
           articleReferences ? articleReferences : ""
         }`,
         `${mbti}와 ${user_mbti}가 ${word}을/를 함께 할 때, 그들이 특히 주의해야 하는 점을 존댓말로 세 가지를 구체적인 예시와 함께 설명해주세요. ${
           articleReferences ? articleReferences : ""
         }`,
+        `${mbti}와 ${user_mbti}가 ${word}을/를 함께 할 때, 그들의 궁합도를 1점에서 100점 사이의 점수로만 나타내 주세요. 대답은 숫자만 말해줘요.${
+          articleReferences ? articleReferences : ""
+        }`,
+        
       ];
       
 
@@ -102,10 +106,11 @@ async function insertArticle(mbtiResult, mbti, user_mbti, word, userId) {
     const advantage = mbtiResult[0];
     const warning = mbtiResult[1];
     const precaution = mbtiResult[2];
+    const rate = mbtiResult[3];
 
     await connection2.query(
-      "INSERT INTO compatibility (mbti, user_mbti, word, advantage, warning, precaution, user_id) VALUES (?, ?, ?, ?, ?, ?, ?)",
-      [mbti, user_mbti, word, advantage, warning, precaution, userId]
+      "INSERT INTO compatibility (mbti, user_mbti, word, advantage, warning, precaution, user_id, rate) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+      [mbti, user_mbti, word, advantage, warning, precaution, userId, rate]
     );
   } catch (error) {
     console.error("Database insertion error:", error.message);
