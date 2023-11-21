@@ -354,7 +354,7 @@ exports.score = async (req, res) => {
 			);
 
 			// If successful, redirect to result page
-			res.redirect("/result");
+			res.redirect("/openkakao");
 		}
 	);
 };

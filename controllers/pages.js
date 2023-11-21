@@ -50,22 +50,22 @@ router.get("/login", (req, res) => {
 // 	});
 // });
 
-// router.get("/openkakao", filter.isLoggedIn, async (req, res) => {
-// 	try {
-// 		const page = parseInt(req.query.page) || 1;
+router.get("/openkakao", filter.isLoggedIn, async (req, res) => {
+	try {
+		const page = parseInt(req.query.page) || 1;
 
-// 		const { rows, paginator } = await authController.getOpenkakaoList2(page);
+		const { rows, paginator } = await authController.getOpenkakaoList2(page);
 
-// 		res.render("../views/openkakao", {
-// 			user: req.user,
-// 			items: rows,
-// 			paginator,
-// 		});
-// 	} catch (error) {
-// 		console.log(error);
-// 		res.status(500).send("Server Error");
-// 	}
-// });
+		res.render("../views/openkakao", {
+			user: req.user,
+			items: rows,
+			paginator,
+		});
+	} catch (error) {
+		console.log(error);
+		res.status(500).send("Server Error");
+	}
+});
 
 
 router.get("/result", filter.isLoggedIn, async (req, res) => {
@@ -107,21 +107,21 @@ router.get("/select", filter.isLoggedIn, (req, res) => {
   }
 });
 
-router.get('/openkakao', filter.isLoggedIn, async (req, res) => {
-  try {
-    if (req.user) {
-      const results = await authController.getOpenkakaoData();
-      res.render("openkakao", {
-        items: results,
-      });
-    } else {
-      res.redirect("/login");
-    }
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Server Error');
-  }
-});
+// router.get('/openkakao', filter.isLoggedIn, async (req, res) => {
+//   try {
+//     if (req.user) {
+//       const results = await authController.getOpenkakaoData();
+//       res.render("openkakao", {
+//         items: results,
+//       });
+//     } else {
+//       res.redirect("/login");
+//     }
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).send('Server Error');
+//   }
+// });
 
 //오픈카톡디비에서 가져오기
 // router.post("/openkakao", filter.isLoggedIn, async (req, res) => {
