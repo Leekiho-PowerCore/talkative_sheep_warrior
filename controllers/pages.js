@@ -52,15 +52,19 @@ router.get("/login", (req, res) => {
 
 router.get("/openkakao", filter.isLoggedIn, async (req, res) => {
 	try {
-		const page = parseInt(req.query.page) || 1;
+    if(req.user) {
+      const page = parseInt(req.query.page) || 1;
 
-		const { rows, paginator } = await authController.getOpenkakaoList2(page);
-
-		res.render("../views/openkakao", {
-			user: req.user,
-			items: rows,
-			paginator,
-		});
+      const { rows, paginator } = await authController.getOpenkakaoList2(page);
+  
+      res.render("../views/openkakao", {
+        user: req.user,
+        items: rows,
+        paginator,
+      });
+    } else {
+      res.redirect("/login");
+    }
 	} catch (error) {
 		console.log(error);
 		res.status(500).send("Server Error");
