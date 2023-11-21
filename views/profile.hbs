@@ -69,7 +69,7 @@
                                 <h2 class="car-title">{{user.name}}</h2>
                                 <p class="card-text text-muted">{{user.mbti}}</p>
                                 <p class="card-text text-muted">{{user.age}} 세</p>
-                                <p class="card-text text-muted">{{user.sex}}</p>
+                                <p class="card-text text-muted">{{#if user.sex}}여성{{else}}남성{{/if}}</p>
                                 <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal"
                                     data-bs-target="#editProfileModal">
                                     프로필 수정
@@ -125,8 +125,8 @@
                         <div class="mb-3">
                             <label for="sex" class="form-label">성별</label>
                             <select class="select col-6 form-control" id="sex" name="sex" required>
-                                <option value="on">남성</option>
-                                <option value="off">여성</option>
+                                <option value="0">남성</option>
+                                <option value="1">여성</option>
                             </select>
                         </div>
                     </div>
@@ -165,18 +165,16 @@
     <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
     <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
     <script>
-        window.onload = function () {
-            var sex = "{{user.sex}}";
-            var selectElement = document.getElementById('sex');
-            selectElement.value = sex;
-        };
+    window.onload = function () {
+        var sex = "{{user.sex}}";
+        var selectElement = document.getElementById('sex');
+        selectElement.value = sex;
 
-        window.onload = function () {
-            var mbti = "{{user.mbti}}";
-            var selectElement = document.getElementById('mbti');
-            selectElement.value = mbti;
-        };
-    </script>
+        var mbti = "{{user.mbti}}";
+        var selectElementMbti = document.getElementById('mbti');
+        selectElementMbti.value = mbti;
+    };
+</script>
 </body>
 
 </html>

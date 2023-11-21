@@ -238,11 +238,18 @@
             <input type="age" class="form-control" id="age" name="age" required>
           </div>
         </div>
-        <div class="d-flex align-items-center mt-2">
-          <input type="radio" name="sex" id="male"><label for="male" class="m-3">Male</label>
-          <input type="radio" name="sex" id="female"><label for="female" class="m-3">Female</label>
+        <div class="row">
+          <div class="col-md-6 mt-md-0 mt-3">
+            <label for="sex" class="form-label pt-3">성별</label>
+            <select class="select col-6 form-control" id="sex" name="sex" required>
+              <option value="0">남성</option>
+              <option value="1">여성</option>
+            </select>
+          </div>
+          <div class="col-md-6 mt-md-auto mt-3">
+            <button type="submit" class="form-control btn btn-primary">Register</button>
+          </div>
         </div>
-        <button type="submit" class="btn btn-primary">Register</button>
     </div>
     </form>
     {{#if message}}
