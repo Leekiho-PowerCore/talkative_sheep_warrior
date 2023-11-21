@@ -234,8 +234,8 @@
             </select>
           </div>
           <div class="col-md-6 mt-md-0 mt-3">
-            <label for="age" class="form-label pt-3">age</label>
-            <input type="number" class="form-control" id="age" name="age" required>
+            <label for="age" class="form-label pt-3">생년월일</label>
+            <input type="date" class="form-control" id="age" name="age" required>
           </div>
         </div>
         <div class="row">
@@ -267,6 +267,12 @@
     <script>
       $(document).ready(function () {
         $("#mbti").select2();
+      });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var today = new Date().toISOString().split("T")[0];
+        document.getElementById("age").max = today;
       });
     </script>
 </body>

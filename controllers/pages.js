@@ -86,11 +86,21 @@ router.get("/result", filter.isLoggedIn, async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
-
 router.get("/profile", filter.isLoggedIn, (req, res) => {
   if (req.user) {
+    // 서버의 시간대를 고려하여 Date 객체를 문자열로 변환하여 'YYYY-MM-DD' 형식으로 만듭니다.
+    const rawDate = new Date(req.user.age);
+    const year = rawDate.getFullYear();
+    const month = String(rawDate.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1이 필요하며, 두 자리로 표시하려면 padStart를 사용합니다.
+    const day = String(rawDate.getDate()).padStart(2, '0');
+
+    const formattedUser = {
+      ...req.user,
+      age: `${year}-${month}-${day}`,
+    };
+
     res.render("profile", {
-      user: req.user,
+      user: formattedUser,
     });
   } else {
     res.redirect("/login");
