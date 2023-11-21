@@ -12,7 +12,7 @@ async function generateResult(mbti, user_mbti, word) {
     // Query database for related articles
     const result = await new Promise((resolve, reject) => {
       connection2.query(
-        `SELECT * FROM compatibility WHERE mbti = ? AND user_mbti = ? AND word = ?`,
+        `SELECT * FROM rating WHERE mbti = ? AND user_mbti = ? AND word = ?`,
         [mbti, user_mbti, word],
         function (error, results) {
           if (error) reject(error);
@@ -32,17 +32,18 @@ async function generateResult(mbti, user_mbti, word) {
       .map((row, index) => `참고문헌${index + 1}: ${row.compatibility_id}`)
       .join(", ");
 
-    const prompts = [
-      `${mbti}와 ${user_mbti}가 함께 ${word}을/를 할 때 장점을 존댓말로 3가지씩 쉽게 알려줘. ${
-        articleReferences ? articleReferences : ""
-      }`,
-      `${mbti}와 ${user_mbti}가 함께 ${word}을/를 할 때 단점을 존댓말로 3가지씩 쉽게 알려줘. ${
-        articleReferences ? articleReferences : ""
-      }`,
-      `${mbti}와 ${user_mbti}가 함께 ${word}을/를 할 때 조심해야 할 점을 존댓말로 3가지씩 쉽게 알려줘. ${
-        articleReferences ? articleReferences : ""
-      }`,
-    ];
+      const prompts = [
+        `MBTI 유형이 ${mbti}인 사람과 ${user_mbti}인 사람이 ${word}을/를 함께 할 때, 그들의 협력에서 발생할 수 있는 장점을 존댓말로 세 가지를 구체적인 예시와 함께 알려주세요. ${
+          articleReferences ? articleReferences : ""
+        }`,
+        `이번에는 반대로, ${mbti}와 ${user_mbti}가 ${word}을/를 함께 할 때, 그들의 협력에서 나타날 수 있는 단점을 존댓말로 세 가지를 구체적인 예시와 함께 알려주세요. ${
+          articleReferences ? articleReferences : ""
+        }`,
+        `${mbti}와 ${user_mbti}가 ${word}을/를 함께 할 때, 그들이 특히 주의해야 하는 점을 존댓말로 세 가지를 구체적인 예시와 함께 설명해주세요. ${
+          articleReferences ? articleReferences : ""
+        }`,
+      ];
+      
 
     const mbtiResult = [];
 
