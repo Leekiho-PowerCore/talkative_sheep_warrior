@@ -286,4 +286,21 @@ exports.score = async (req, res) => {
     // If successful, redirect to result page
     res.redirect('/result');
   });
-}
+};
+
+exports.updateProfile = async (req, res) => {
+  const { name, mbti, age, sex } = req.body;
+
+  connection.query(
+    "UPDATE users SET name = ?, mbti = ?, age = ?, sex = ? WHERE user_id = ?",
+    [name, mbti, age, sex, req.user.user_id],
+    (error, results) => {
+      if (error) {
+        console.log(error);
+        return res.status(500).send("Database update error");
+      }
+
+      res.status(200).redirect("/profile");
+    }
+  );
+};
