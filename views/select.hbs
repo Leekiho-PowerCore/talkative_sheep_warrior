@@ -28,6 +28,19 @@
       transform: scale(1.03);
       box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
     }
+
+    #overlay {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: white;
+      z-index: 2;
+      opacity: 75%;
+    }
   </style>
 </head>
 
@@ -36,14 +49,14 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
       <div class="container px-5">
-        <a class="navbar-brand" href="/"><span class="fw-bolder text-primary">Start Bootstrap</span></a>
+        <a class="navbar-brand" href="/"><span class="fw-bolder text-primary">
+            GPTI</span></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
             class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
             <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-            <li class="nav-item"><a class="nav-link" href="/result">결과</a></li>
             {{#if user }}
             <li class="nav-item"><a class="nav-link" href="/profile">Profile</a></li>
             <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
@@ -56,201 +69,238 @@
       </div>
     </nav>
     <!-- Page Content-->
-      <div class="container px-5 my-5">
-        <div class="row gx-5 justify-content-center">
-          <!-- Experience Section-->
-          <section>
-            <div class="d-flex align-items-center justify-content-between mb-4">
-              <h2 class="text-primary fw-bolder mb-0">궁합 검사</h2>
-              <!-- Download resume button-->
-              <!--Note: Set the link href target to a PDF file within your project-->
-              <a class="btn btn-primary px-4 py-3"
-                href="https://www.16personalities.com/ko/%EB%AC%B4%EB%A3%8C-%EC%84%B1%EA%B2%A9-%EC%9C%A0%ED%98%95-%EA%B2%80%EC%82%AC">
-                <div class="d-inline-block me-2"></div>
-                MBTI 테스트
-              </a>
+    <div class="container px-5 my-5">
+      <div class="row gx-5 justify-content-center">
+        <!-- Experience Section-->
+        <section>
+          <div class="d-flex align-items-center justify-content-between mb-4">
+            <h2 class="text-primary fw-bolder mb-0">궁합 검사</h2>
+            <!-- Download resume button-->
+            <!--Note: Set the link href target to a PDF file within your project-->
+            <a class="btn btn-primary px-4 py-3"
+              href="https://www.16personalities.com/ko/%EB%AC%B4%EB%A3%8C-%EC%84%B1%EA%B2%A9-%EC%9C%A0%ED%98%95-%EA%B2%80%EC%82%AC">
+              <div class="d-inline-block me-2"></div>
+              MBTI 테스트
+            </a>
+          </div>
+          <div class="justify-content-center align-items-center" id="overlay" style="display: none;">
+            <div class="spinner-grow text-primary" id="loading" style="width: 3rem; height: 3rem;" role="status"
+              style="display: none;">
+              <span class="sr-only"></span>
             </div>
-            <form action="/generate" method="POST">
-              <div class="justify-content-center row">
-                <div class="col-12 col-lg-6 mt-5" id="formGroup" style="display: none;">
-                  <div class="form-group">
-                    <label class="display-6 fw-bold mb-4 text-center text-gradient" for="word">질문할 단어</label>
-                    <input type="text" id="word" name="word" class="form-control" placeholder="Enter a word" required>
+          </div>
+          <form action="/generate" method="POST">
+            <div class="justify-content-center row">
+              <div class="col-12 col-lg-6 mt-5" id="formGroup" style="display: none;">
+                <div class="form-group">
+                  <label class="display-6 fw-bold mb-4 text-center text-gradient" for="word">질문할 단어</label>
+                  <select class="select col-6 form-control" id="word" name="word" required>
+                    <option value="" disabled selected>키워드를 선택하세요</option>
+                    <option value="운동">운동</option>
+                    <option value="연애">연애</option>
+                    <option value="요리">요리</option>
+                    <option value="영화/드라마">영화/드라마</option>
+                    <option value="여행">여행</option>
+                    <option value="책/독서">책/독서</option>
+                    <option value="음악">음악</option>
+                    <option value="미술/디자인">미술/디자인</option>
+                    <option value="테크놀로지/IT">테크놀로지/IT</option>
+                    <option value="게임">게임</option>
+                    <option value="모임/이벤트 참여">모임/이벤트 참여</option>
+                    <option value="봉사활동">봉사활동</option>
+                    <option value="쇼핑/패션">쇼핑/패션</option>
+                    <option value="음식 탐험/맛집">음식 탐험/맛집</option>
+                    <option value="학문/교육">학문/교육</option>
+                    <option value="스포츠 관람/참여">스포츠 관람/참여</option>
+                    <option value="자연/환경 활동">자연/환경 활동</option>
+                    <option value="사회활동/정치 참여">사회활동/정치 참여</option>
+                    <option value="집/인테리어">집/인테리어</option>
+                    <option value="음주/칵테일">음주/칵테일</option>
+                    <option value="댄스/무용">댄스/무용</option>
+                    <option value="사진/영상 촬영">사진/영상 촬영</option>
+                    <option value="웃음/코미디">웃음/코미디</option>
+                    <option value="동물/반려동물">동물/반려동물</option>
+                    <option value="음식 요리 클래스">음식 요리 클래스</option>
+                    <option value="자기계발/공부">자기계발/공부</option>
+                    <option value="스포츠 용품/장비 수집">스포츠 용품/장비 수집</option>
+                    <option value="음악 악기 연주">음악 악기 연주</option>
+                    <option value="모바일 앱/게임">모바일 앱/게임</option>
+                    <option value="자동차/모터스포츠">자동차/모터스포츠</option>
+                  </select>
+
+                </div>
+                <div class="d-flex justify-content-end">
+                  <button type="submit" class="btn btn-primary mt-4">Submit</button>
+                </div>
+              </div>
+            </div>
+            <!--my mbti Card 1-->
+            <div class="row justify-content-center">
+              <div class="col-12">
+                <div class="row">
+                  <!--my mbti Card 1-->
+                  <div class="col-12 col-lg-3 mb-4">
+                    <div class="card shadow border-0 rounded-4 mb-5">
+                      <div class="card-body p-5 d-flex justify-content-center align-items-center">
+                        <div class="row align-items-center gx-5">
+                          <div class="col text-center text-lg-start mb-4 mb-lg-0">
+                            <div class="p-4 rounded-4">
+                              <h4 class="text-center mb-4 text-gradient fw-bold">내 MBTI</h4>
+                              <div class="form-group">
+                                <img id="mbtiImg" name="mbtiImg" class="form-control border-0"
+                                  src="../{{user.mbti}}.png" onerror="this.style.display='none'" readonly>
+                                <input type="hidden" id="mbti" name="mbti" value={{user.mbti}}>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div class="d-flex justify-content-end">
-                    <button type="submit" class="btn btn-primary mt-4">Submit</button>
+
+                  <!-- MBTI 선택 섹션 시작 -->
+                  <div class="col-12 col-lg-6 mb-4">
+                    <div class="card shadow border-0 rounded-4 mb-5">
+                      <div class="card-body p-5">
+                        <div class="mb-5">
+                          <div class="d-flex align-items-center mb-lg-4 mb-4">
+                            <div class="feature bg-primary bg-gradient-primary-to-secondary text-white rounded-3 me-3">
+                              <i class="bi bi-tools"></i>
+                            </div>
+                            <h3 class="fw-bolder mb-0"><span class="text-gradient d-inline">외향적</span></h3>
+                          </div>
+                          <div class="row row-cols-md-4 mb-lg-4">
+                            <div class="col mb-4 mb-md-0">
+                              <div
+                                class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
+                                ENFJ</div>
+                            </div>
+                            <div class="col mb-4 mb-md-0">
+                              <div
+                                class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
+                                ENTP</div>
+                            </div>
+                            <div class="col mb-4 mb-md-0">
+                              <div
+                                class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
+                                ENFP</div>
+                            </div>
+                            <div class="col mb-4 mb-md-0">
+                              <div
+                                class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
+                                ENTJ</div>
+                            </div>
+                          </div>
+                          <div class="row row-cols-md-4">
+                            <div class="col mb-4 mb-md-0">
+                              <div
+                                class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
+                                ESFJ</div>
+                            </div>
+                            <div class="col mb-4 mb-md-0">
+                              <div
+                                class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
+                                ESFP</div>
+                            </div>
+                            <div class="col mb-4 mb-md-0">
+                              <div
+                                class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
+                                ESTJ</div>
+                            </div>
+                            <div class="col mb-4 mb-md-0">
+                              <div
+                                class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
+                                ESTP</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="mb-0">
+                          <div class="d-flex align-items-center mb-4">
+                            <div class="feature bg-primary bg-gradient-primary-to-secondary text-white rounded-3 me-3">
+                              <i class="bi bi-code-slash"></i>
+                            </div>
+                            <h3 class="fw-bolder mb-0"><span class="text-gradient d-inline">내향적</span>
+                            </h3>
+                          </div>
+                          <div class="row row-cols-md-4 mb-lg-4">
+                            <div class="col mb-4 mb-md-0">
+                              <div
+                                class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
+                                INFJ</div>
+                            </div>
+                            <div class="col mb-4 mb-md-0">
+                              <div
+                                class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
+                                INFP</div>
+                            </div>
+                            <div class="col mb-4 mb-md-0">
+                              <div
+                                class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
+                                INTJ</div>
+                            </div>
+                            <div class="col mb-4 mb-md-0">
+                              <div
+                                class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
+                                INTP</div>
+                            </div>
+                          </div>
+                          <div class="row row-cols-md-4">
+                            <div class="col mb-4 mb-md-0">
+                              <div
+                                class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
+                                ISFJ</div>
+                            </div>
+                            <div class="col mb-4 mb-md-0">
+                              <div
+                                class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
+                                ISFP</div>
+                            </div>
+                            <div class="col mb-4 mb-md-0">
+                              <div
+                                class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
+                                ISTJ</div>
+                            </div>
+                            <div class="col mb-4 mb-md-0">
+                              <div
+                                class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
+                                ISTP</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- MBTI 선택 섹션 끝 -->
+
+                  <!--my mbti Card 2-->
+                  <div class="col-12 col-lg-3">
+                    <div class="card shadow border-0 rounded-4 mb-5">
+                      <div class="card-body p-5 d-flex justify-content-center align-items-center">
+                        <div class="row align-items-center gx-5">
+                          <div class="col text-center text-lg-start mb-4 mb-lg-0">
+                            <div class="p-4 rounded-4">
+                              <h4 class="text-center mb-4 text-gradient fw-bold">상대 MBTI</h4>
+                              <div class="form-group">
+                                <img id="user_mbti_image" onerror="this.style.display='none">
+                                <h4 id="chose_mbti" style="display: block;" class="fs-6">mbti를 선택해주세요.</h4>
+                                <input type="hidden" id="user_mbti" name="user_mbti">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                      <button type="button" class="btn btn-primary" id="nextButton">다음</button>
+                    </div>
                   </div>
                 </div>
               </div>
-              <!--my mbti Card 1-->
-              <div class="row justify-content-center">
-                <div class="col-12">
-                  <div class="row">
-                    <!--my mbti Card 1-->
-                    <div class="col-12 col-lg-3 mb-4">
-                      <div class="card shadow border-0 rounded-4 mb-5">
-                        <div class="card-body p-5 d-flex justify-content-center align-items-center">
-                          <div class="row align-items-center gx-5">
-                            <div class="col text-center text-lg-start mb-4 mb-lg-0">
-                              <div class="p-4 rounded-4">
-                                <h4 class="text-center mb-4 text-gradient fw-bold">내 MBTI</h4>
-                                <div class="form-group">
-                                  <img id="mbtiImg" name="mbtiImg" class="form-control border-0"
-                                    src="../{{user.mbti}}.png" onerror="this.style.display='none'" readonly>
-                                  <input type="hidden" id="mbti" name="mbti" value={{user.mbti}}>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- MBTI 선택 섹션 시작 -->
-                    <div class="col-12 col-lg-6 mb-4">
-                      <div class="card shadow border-0 rounded-4 mb-5">
-                        <div class="card-body p-5">
-                          <div class="mb-5">
-                            <div class="d-flex align-items-center mb-lg-4 mb-4">
-                              <div
-                                class="feature bg-primary bg-gradient-primary-to-secondary text-white rounded-3 me-3">
-                                <i class="bi bi-tools"></i>
-                              </div>
-                              <h3 class="fw-bolder mb-0"><span class="text-gradient d-inline">외향적</span></h3>
-                            </div>
-                            <div class="row row-cols-md-4 mb-lg-4">
-                              <div class="col mb-4 mb-md-0">
-                                <div
-                                  class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
-                                  ENFJ</div>
-                              </div>
-                              <div class="col mb-4 mb-md-0">
-                                <div
-                                  class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
-                                  ENTP</div>
-                              </div>
-                              <div class="col mb-4 mb-md-0">
-                                <div
-                                  class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
-                                  ENFP</div>
-                              </div>
-                              <div class="col mb-4 mb-md-0">
-                                <div
-                                  class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
-                                  ENTJ</div>
-                              </div>
-                            </div>
-                            <div class="row row-cols-md-4">
-                              <div class="col mb-4 mb-md-0">
-                                <div
-                                  class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
-                                  ESFJ</div>
-                              </div>
-                              <div class="col mb-4 mb-md-0">
-                                <div
-                                  class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
-                                  ESFP</div>
-                              </div>
-                              <div class="col mb-4 mb-md-0">
-                                <div
-                                  class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
-                                  ESTJ</div>
-                              </div>
-                              <div class="col mb-4 mb-md-0">
-                                <div
-                                  class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
-                                  ESTP</div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="mb-0">
-                            <div class="d-flex align-items-center mb-4">
-                              <div
-                                class="feature bg-primary bg-gradient-primary-to-secondary text-white rounded-3 me-3">
-                                <i class="bi bi-code-slash"></i>
-                              </div>
-                              <h3 class="fw-bolder mb-0"><span class="text-gradient d-inline">내향적</span>
-                              </h3>
-                            </div>
-                            <div class="row row-cols-md-4 mb-lg-4">
-                              <div class="col mb-4 mb-md-0">
-                                <div
-                                  class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
-                                  INFJ</div>
-                              </div>
-                              <div class="col mb-4 mb-md-0">
-                                <div
-                                  class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
-                                  INFP</div>
-                              </div>
-                              <div class="col mb-4 mb-md-0">
-                                <div
-                                  class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
-                                  INTJ</div>
-                              </div>
-                              <div class="col mb-4 mb-md-0">
-                                <div
-                                  class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
-                                  INTP</div>
-                              </div>
-                            </div>
-                            <div class="row row-cols-md-4">
-                              <div class="col mb-4 mb-md-0">
-                                <div
-                                  class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
-                                  ISFJ</div>
-                              </div>
-                              <div class="col mb-4 mb-md-0">
-                                <div
-                                  class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
-                                  ISFP</div>
-                              </div>
-                              <div class="col mb-4 mb-md-0">
-                                <div
-                                  class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
-                                  ISTJ</div>
-                              </div>
-                              <div class="col mb-4 mb-md-0">
-                                <div
-                                  class="align-items-center bg-body border border-info border-opacity-50 custom-button d-flex h-100 p-3 rounded-4">
-                                  ISTP</div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- MBTI 선택 섹션 끝 -->
-
-                    <!--my mbti Card 2-->
-                    <div class="col-12 col-lg-3">
-                      <div class="card shadow border-0 rounded-4 mb-5">
-                        <div class="card-body p-5 d-flex justify-content-center align-items-center">
-                          <div class="row align-items-center gx-5">
-                            <div class="col text-center text-lg-start mb-4 mb-lg-0">
-                              <div class="p-4 rounded-4">
-                                <h4 class="text-center mb-4 text-gradient fw-bold">상대 MBTI</h4>
-                                <div class="form-group">
-                                  <img id="user_mbti_image" onerror="this.style.display='none">
-                                  <h4 id="chose_mbti" style="display: block;" class="fs-6">mbti를 선택해주세요.</h4>
-                                  <input type="hidden" id="user_mbti" name="user_mbti">
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="d-flex justify-content-end">
-                        <button type="button" class="btn btn-primary" id="nextButton">다음</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </form>
-          </section>
-        </div>
+            </div>
+          </form>
+        </section>
       </div>
+    </div>
   </main>
   <footer class="bg-white py-4 mt-auto">
     <div class="container px-5">
@@ -294,8 +344,21 @@
         card.style.display = 'none';
       });
     });
-  </script>
 
+    document.querySelector('form').addEventListener('submit', function () {
+      // Submit 버튼 클릭 시 로딩 표시 보이기
+      var overlay = document.getElementById('overlay');
+      var loading = document.getElementById('loading');
+      overlay.style.display = 'block';
+      overlay.classList.add('d-flex');  // d-flex 클래스 추가
+      loading.style.display = 'block';
+    });
+  </script>
+    <script>
+      $(document).ready(function () {
+        $("#word").select2();
+      });
+    </script>
 </body>
 
 </html>
