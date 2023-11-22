@@ -116,10 +116,12 @@ router.get("/profile", filter.isLoggedIn, (req, res) => {
 	}
 });
 
-router.get("/select", filter.isLoggedIn, (req, res) => {
+router.get("/select", filter.isLoggedIn, async (req, res) => {
+  const categoryList = await authController.getCategoryList(); // 카테고리 목록을 가져옵니다.
 	if (req.user) {
 		res.render("select", {
 			user: req.user,
+      category: categoryList,
 		});
 	} else {
 		res.redirect("/login");
