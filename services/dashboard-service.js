@@ -3,13 +3,13 @@ const paginator_util = require("../utils/paginator.js");
 
 const perPage = 15;
 
-async function getUserList(page) {
+async function getUsersList(page) {
 	const offset = (page - 1) * perPage;
 	try {
 		const [rows, totalCountRows] = await Promise.all([
 			new Promise((resolve, reject) => {
 				connection.query(
-					`select * from user order by user_id desc limit ${offset}, ${perPage}`,
+					`select * from users order by user_id desc limit ${offset}, ${perPage}`,
 					(error, rows) => {
 						if (error) {
 							reject(error);
@@ -21,7 +21,7 @@ async function getUserList(page) {
 			}),
 			new Promise((resolve, reject) => {
 				connection.query(
-					"select count(*) as totalCount from user",
+					"select count(*) as totalCount from users",
 					(error, rows) => {
 						if (error) {
 							reject(error);
@@ -33,11 +33,11 @@ async function getUserList(page) {
 			}),
 		]);
 
-		const paginator = paginator_util.createPaginator({
-			totalCount: totalCountRows,
+		const paginator = paginator_util.createPaginator(
+			totalCountRows,
 			page,
-			perPage,
-		});
+			perPage
+		);
 
 		return { rows, paginator };
 	} catch (error) {
@@ -75,11 +75,11 @@ async function getCompatibilityList(page) {
 			}),
 		]);
 
-		const paginator = paginator_util.createPaginator({
-			totalCount: totalCountRows,
+		const paginator = paginator_util.createPaginator(
+			totalCountRows,
 			page,
-			perPage,
-		});
+			perPage
+		);
 
 		return { rows, paginator };
 	} catch (error) {
@@ -117,11 +117,11 @@ async function getCategoryList(page) {
 			}),
 		]);
 
-		const paginator = paginator_util.createPaginator({
-			totalCount: totalCountRows,
+		const paginator = paginator_util.createPaginator(
+			totalCountRows,
 			page,
-			perPage,
-		});
+			perPage
+		);
 
 		return { rows, paginator };
 	} catch (error) {
@@ -159,11 +159,11 @@ async function getOpenkakaoList(page) {
 			}),
 		]);
 
-		const paginator = paginator_util.createPaginator({
-			totalCount: totalCountRows,
+		const paginator = paginator_util.createPaginator(
+			totalCountRows,
 			page,
-			perPage,
-		});
+			perPage
+		);
 
 		return { rows, paginator };
 	} catch (error) {
@@ -171,13 +171,13 @@ async function getOpenkakaoList(page) {
 	}
 }
 
-async function getTopList(page) {
+async function getRatingList(page) {
 	const offset = (page - 1) * perPage;
 	try {
 		const [rows, totalCountRows] = await Promise.all([
 			new Promise((resolve, reject) => {
 				connection.query(
-					`select * from top order by compatibility_id desc limit ${offset}, ${perPage}`,
+					`select * from rating order by compatibility_id desc limit ${offset}, ${perPage}`,
 					(error, rows) => {
 						if (error) {
 							reject(error);
@@ -189,7 +189,7 @@ async function getTopList(page) {
 			}),
 			new Promise((resolve, reject) => {
 				connection.query(
-					"select count(*) as totalCount from top",
+					"select count(*) as totalCount from rating",
 					(error, rows) => {
 						if (error) {
 							reject(error);
@@ -201,11 +201,11 @@ async function getTopList(page) {
 			}),
 		]);
 
-		const paginator = paginator_util.createPaginator({
-			totalCount: totalCountRows,
+		const paginator = paginator_util.createPaginator(
+			totalCountRows,
 			page,
-			perPage,
-		});
+			perPage
+		);
 
 		return { rows, paginator };
 	} catch (error) {
@@ -214,9 +214,9 @@ async function getTopList(page) {
 }
 
 module.exports = {
-	getUserList,
+	getUsersList,
 	getCompatibilityList,
 	getCategoryList,
 	getOpenkakaoList,
-	getTopList,
+	getRatingList,
 };

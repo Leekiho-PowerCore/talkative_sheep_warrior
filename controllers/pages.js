@@ -77,6 +77,42 @@ router.get("/openkakao", filter.isLoggedIn, async (req, res) => {
 	}
 });
 
+//재이수정
+router.get("/dashboard", filter.isLoggedIn, async (req, res) => {
+	try {
+		const page = parseInt(req.query.page) || 1;
+		const category = req.query.category || "category";
+
+		let rows;
+		let paginator;
+
+		if (category === "category") {
+			console.log("category 들어옴");
+			({ rows, paginator } = await dash.getCategoryList(page));
+		} else if (category === "compatibility") {
+			({ rows, paginator } = await dash.getCompatibilityList(page));
+		} else if (category === "openkakao") {
+			({ rows, paginator } = await dash.getOpenkakaoList(page));
+		} else if (category === "rating") {
+			({ rows, paginator } = await dash.getRatingList(page));
+		} else if (category === "users") {
+			({ rows, paginator } = await dash.getUsersList(page));
+		} else {
+			console.log("category is not valid");
+		}
+
+		console.log("dashboard rows:", rows, paginator);
+
+		res.render("../views/dashboard", {
+			rows,
+			paginator,
+			category,
+		});
+	} catch (error) {
+		console.log(error);
+	}
+});
+
 router.get("/result", filter.isLoggedIn, async (req, res) => {
 	try {
 		if (req.user) {
