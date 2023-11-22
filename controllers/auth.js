@@ -380,3 +380,15 @@ exports.updateProfile = async (req, res) => {
 		}
 	);
 };
+
+exports.getCategoryList = (async) => {
+	return new Promise((resolve, reject) => {
+		connection.query("SELECT * FROM category", (error, rows) => {
+			if (error) {
+				reject("getCategoryList error");
+			} else {
+				resolve(rows);
+			}
+		});
+	});
+};
