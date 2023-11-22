@@ -95,7 +95,7 @@ exports.register = (req, res) => {
 						console.log(error);
 					} else {
 						console.log(result);
-						return res.render("register", {
+						return res.render("index", {
 							message: "User registered",
 						});
 					}
