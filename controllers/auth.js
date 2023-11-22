@@ -196,28 +196,33 @@ exports.generate = async (req, res) => {
 // 	});
 // };
 
-exports.getOpenkakaoList2 = async function (page) {
+exports.getOpenkakaoList2 = async (page, mbti) => {
 	try {
 		const perPage = 5;
 		const offset = (page - 1) * perPage;
 
+		console.log("mbti: ", mbti);
+
 		const [rows, totalCountRows] = await Promise.all([
 			new Promise((resolve, reject) => {
 				connection.query(
-					`select * from openkakao order by openkakao_id desc limit ${offset}, ${perPage}`,
+					`select * from openkakao where mbti like "%${mbti}%" order by openkakao_id desc limit ${offset}, ${perPage}`,
 					(error, rows) => {
 						//console.log("rows: ", rows);
 						if (error) {
 							reject(error);
 						} else {
 							resolve(rows);
+							console.log(
+								`select * from openkakao where mbti like "%${mbti}%" order by openkakao_id desc limit ${offset}, ${perPage}`
+							);
 						}
 					}
 				);
 			}),
 			new Promise((resolve, reject) => {
 				connection.query(
-					`SELECT COUNT(*) AS totalCount FROM gpti.openkakao`,
+					`SELECT COUNT(*) AS totalCount FROM gpti.openkakao where mbti like "%${mbti}%"`,
 					(error, rows) => {
 						if (error) {
 							reject(error);

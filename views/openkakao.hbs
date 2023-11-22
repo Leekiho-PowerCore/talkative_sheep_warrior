@@ -12,9 +12,7 @@
     <!-- Custom Google font-->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
-        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
     <!-- Bootstrap icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
@@ -28,19 +26,16 @@
             <div class="container px-5">
                 <a class="navbar-brand" href="/"><span class="fw-bolder text-primary">
                         GPTI</span></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation"><span
-                        class="navbar-toggler-icon"></span></button>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
                         <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
                         {{#if user }}
-                        <li class="nav-item"><a class="nav-link" href="/profile">Profile</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/profile">Profile</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
                         {{else}}
-                        <li class="nav-item"><a class="nav-link" href="/login">login</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/login">login</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
                         {{/if}}
                     </ul>
                 </div>
@@ -56,57 +51,101 @@
                 <div class="row gx-5 justify-content-center">
                     <div class="col-lg-11 col-xl-9 col-xxl-8">
                         <!-- Modal Trigger Button -->
-                        <button type="button" class="btn btn-secondary mb-2" data-bs-toggle="modal"
-                            data-bs-target="#dataInputModal">
+                        <button type="button" class="btn btn-secondary mb-2" data-bs-toggle="modal" data-bs-target="#dataInputModal">
                             내 링크 만들기
                         </button>
+
+
+                        {{!-- <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="mbtiSelect" value="{{mbti}}">
+                                <option value="">전체</option>
+                                <option value="ENFJ">ENFJ</option>
+                                <option value="ENFP">ENFP</option>
+                                <option value="ENTJ">ENTJ</option>
+                                <option value="ENTP">ENTP</option>
+                                <option value="ESFJ">ESFJ</option>
+                                <option value="ESFP">ESFP</option>
+                                <option value="ESTJ">ESTJ</option>
+                                <option value="ESTP">ESTP</option>
+                                <option value="INFJ">INFJ</option>
+                                <option value="INFP">INFP</option>
+                                <option value="INTJ">INTJ</option>
+                                <option value="INTP">INTP</option>
+                                <option value="ISFJ">ISFJ</option>
+                                <option value="ISFP">ISFP</option>
+                                <option value="ISTJ">ISTJ</option>
+                                <option value="ISTP">ISTP</option>
+                            </select> --}}
+                        <form id="mbtiForm">
+    <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="selectMbti">
+        <option value="" selected disabled hidden>카테고리를 선택해주세요.</option>
+                                <option value="ENFJ" {{#if (eq mbti "ENFJ")}} selected{{/if}}>ENFJ</option>
+                                <option value="ENFP" {{#if (eq mbti "ENFP")}} selected{{/if}}>ENFP</option>
+                                <option value="ENTJ" {{#if (eq mbti "ENTJ")}} selected{{/if}}>ENTJ</option>
+                                <option value="ENTP" {{#if (eq mbti "ENTP")}} selected{{/if}}>ENTP</option>
+                                <option value="ESFJ" {{#if (eq mbti "ESFJ")}} selected{{/if}}>ESFJ</option>
+                                <option value="ESFP" {{#if (eq mbti "ESFP")}} selected{{/if}}>ESFP</option>
+                                <option value="ESTJ" {{#if (eq mbti "ESTJ")}} selected{{/if}}>ESTJ</option>
+                                <option value="ESTP" {{#if (eq mbti "ESTP")}} selected{{/if}}>ESTP</option>
+                                <option value="INFJ" {{#if (eq mbti "INFJ")}} selected{{/if}}>INFJ</option>
+                                <option value="INFP" {{#if (eq mbti "INFP")}} selected{{/if}}>INFP</option>
+                                <option value="INTJ" {{#if (eq mbti "INTJ")}} selected{{/if}}>INTJ</option>
+                                <option value="INTP" {{#if (eq mbti "INTP")}} selected{{/if}}>INTP</option>
+                                <option value="ISFJ" {{#if (eq mbti "ISFJ")}} selected{{/if}}>ISFJ</option>
+                                <option value="ISFP" {{#if (eq mbti "ISFP")}} selected{{/if}}>ISFP</option>
+                                <option value="ISTJ" {{#if (eq mbti "ISTJ")}} selected{{/if}}>ISTJ</option>
+                                <option value="ISTP" {{#if (eq mbti "ISTP")}} selected{{/if}}>ISTP</option>
+                            </select>
+                        </form>
+
+
+
                         <!-- Project Card 1-->
                         {{#each items}}
-                        <div class="card overflow-hidden shadow rounded-4 border-0 mb-3">
-                            <div class="card-body p-0">
-                                <div class="d-flex align-items-center">
-                                    <div class="p-1">
-                                        <div class="card-body">
-                                            <h3 class="card-title">{{this.intro}}</h5>
-                                                <p class="card-text">{{this.mbti}} / {{this.main_category}}</p>
-                                                <a href="{{this.kakao_address}}" class="btn btn-primary">카톡방으로 이동</a>
+                            <div class="card overflow-hidden shadow rounded-4 border-0 mb-3">
+                                <div class="card-body p-0">
+                                    <div class="d-flex align-items-center">
+                                        <div class="p-1">
+                                            <div class="card-body">
+                                                <h3 class="card-title">{{this.intro}}</h5>
+                                                    <p class="card-text">{{this.mbti}} / {{this.main_category}}</p>
+                                                    <a href="{{this.kakao_address}}" class="btn btn-primary">카톡방으로 이동</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         {{/each}}
 
                         <nav aria-label="Page navigation example">
                             {{#with paginator}}
-                            <ul class="pagination justify-content-center">
-                                {{#if hasPrev}}
-                                <li class="page-item">
-                                    <a class="page-link" href="/openkakao/?page={{prevPage}}">Previous</a>
+                                <ul class="pagination justify-content-center">
+                                    {{#if hasPrev}}
+                                        <li class="page-item">
+                                            <a class="page-link" href="/openkakao/?page={{prevPage}}&mbti={{@root.mbti}}">Previous</a>
                                     {{else}}
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#">Previous</a>
+                                        <li class="page-item disabled">
+                                            <a class="page-link" href="#">Previous</a>
                                     {{/if}}
-                                </li>
+                                    </li>
 
-                                {{#each pageList}}
-                                {{#if (eq . @root.paginator.page)}}
-                                <li class="page-item active"><a class="page-link" href="#">{{.}}</a>
-                                    {{else}}
-                                <li class="page-item"><a class="page-link" href="/openkakao/?page={{.}}">{{.}}</a>
-                                    {{/if}}
-                                </li>
-                                {{/each}}
+                                    {{#each pageList}}
+                                        {{#if (eq . @root.paginator.page)}}
+                                            <li class="page-item active"><a class="page-link" href="#">{{.}}</a>
+                                        {{else}}
+                                            <li class="page-item"><a class="page-link" href="/openkakao/?page={{.}}&mbti={{@root.mbti}}">{{.}}</a>
+                                        {{/if}}
+                                        </li>
+                                    {{/each}}
 
-                                {{#if hasNext}}
-                                <li class="page-item">
-                                    <a class="page-link" href="/openkakao/?page={{nextPage}}">Next</a>
+                                    {{#if hasNext}}
+                                        <li class="page-item">
+                                            <a class="page-link" href="/openkakao/?page={{nextPage}}&mbti={{@root.mbti}}">Next</a>
                                     {{else}}
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#">Next</a>
+                                        <li class="page-item disabled">
+                                            <a class="page-link" href="#">Next</a>
                                     {{/if}}
-                                </li>
-                            </ul>
+                                    </li>
+                                </ul>
                             {{/with}}
                         </nav>
                     </div>
@@ -156,8 +195,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="kakao_address" class="form-label">오픈카톡 주소:</label>
-                            <input type="text" class="form-control" id="kakao_address" name="kakao_address"
-                                placeholder="ex) https://open.kakao.com/~~~~" required>
+                            <input type="text" class="form-control" id="kakao_address" name="kakao_address" placeholder="ex) https://open.kakao.com/~~~~" required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -189,6 +227,16 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
     <script>
+        $(document).ready(function() {
+            $('select#selectMbti').change(function() {
+                var selectedValue = $(this).val();
+                window.location.href = '/openkakao/?mbti=' + selectedValue;
+                
+            })
+        })
+
+    
+
         function validateForm() {
             // 입력된 주소 가져오기
             var kakaoAddress = document.getElementById("kakao_address").value;
@@ -203,6 +251,7 @@
                 return false;
             }
         }
+
     </script>
 </body>
 

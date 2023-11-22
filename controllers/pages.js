@@ -52,73 +52,78 @@ router.get("/login", (req, res) => {
 
 router.get("/openkakao", filter.isLoggedIn, async (req, res) => {
 	try {
-    if(req.user) {
-      const page = parseInt(req.query.page) || 1;
+		if (req.user) {
+			const page = parseInt(req.query.page) || 1;
+			const mbti = req.query.mbti || "";
+			console.log("/openkakao mbti", mbti);
 
-      const { rows, paginator } = await authController.getOpenkakaoList2(page);
-  
-      res.render("../views/openkakao", {
-        user: req.user,
-        items: rows,
-        paginator,
-      });
-    } else {
-      res.redirect("/login");
-    }
+			const { rows, paginator } = await authController.getOpenkakaoList2(
+				page,
+				mbti
+			);
+
+			res.render("../views/openkakao", {
+				user: req.user,
+				items: rows,
+				paginator,
+				mbti: mbti,
+			});
+		} else {
+			res.redirect("/login");
+		}
 	} catch (error) {
 		console.log(error);
 		res.status(500).send("Server Error");
 	}
 });
 
-
 router.get("/result", filter.isLoggedIn, async (req, res) => {
-  try {
-    if (req.user) {
-      console.log(req.user);
-      const user_id = req.user.user_id;
-      const userData = await authController.getUserDataByUserId(user_id);
-      res.render("result", {
-        user: req.user,
-        compatibility: userData[0],
-      });
-    } else {
-      res.redirect("/login");
-    }
-  } catch(err) {
-    console.error(err);
-    res.status(500).send('Server Error');
-  }
+	try {
+		if (req.user) {
+			console.log(req.user);
+			const user_id = req.user.user_id;
+			const userData = await authController.getUserDataByUserId(user_id);
+			res.render("result", {
+				user: req.user,
+				compatibility: userData[0],
+			});
+		} else {
+			res.redirect("/login");
+		}
+	} catch (err) {
+		console.error(err);
+		res.status(500).send("Server Error");
+	}
 });
 router.get("/profile", filter.isLoggedIn, (req, res) => {
-  if (req.user) {
-    // 서버의 시간대를 고려하여 Date 객체를 문자열로 변환하여 'YYYY-MM-DD' 형식으로 만듭니다.
-    const rawDate = new Date(req.user.age);
-    const year = rawDate.getFullYear();
-    const month = String(rawDate.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1이 필요하며, 두 자리로 표시하려면 padStart를 사용합니다.
-    const day = String(rawDate.getDate()).padStart(2, '0');
+	if (req.user) {
+		// 서버의 시간대를 고려하여 Date 객체를 문자열로 변환하여 'YYYY-MM-DD' 형식으로 만듭니다.
+		const rawDate = new Date(req.user.age);
+		const year = rawDate.getFullYear();
+		const month = String(rawDate.getMonth() + 1).padStart(2, "0"); // 월은 0부터 시작하므로 +1이 필요하며, 두 자리로 표시하려면 padStart를 사용합니다.
+		const day = String(rawDate.getDate()).padStart(2, "0");
 
-    const formattedUser = {
-      ...req.user,
-      age: `${year}-${month}-${day}`,
-    };
+		const formattedUser = {
+			...req.user,
+			age: `${year}-${month}-${day}`,
+		};
 
-    res.render("profile", {
-      user: formattedUser,
-    });
-  } else {
-    res.redirect("/login");
-  }
+		res.render("profile", {
+			user: formattedUser,
+		});
+	} else {
+		res.redirect("/login");
+	}
 });
 
 router.get("/select", filter.isLoggedIn, (req, res) => {
-  if (req.user) {
-    res.render("select", {
-      user: req.user,
-    });
-  } else {
-    res.redirect("/login");
-  }
+	if (req.user) {
+		res.render("select", {
+			user: req.user,
+		});
+	} else {
+		res.redirect("/login");
+	}
 });
 
 // router.get('/openkakao', filter.isLoggedIn, async (req, res) => {

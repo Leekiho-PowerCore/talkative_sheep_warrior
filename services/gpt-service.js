@@ -36,9 +36,9 @@ async function generateResult(mbti, user_mbti, word) {
 			.join(", ");
 
 		const prompts = [
-			`MBTI 유형이 ${mbti}인 사람과 ${user_mbti}인 사람이 ${word}을/를 함께 할 때, 그들의 협력에서 발생할 수 있는 장점을 존댓말로 세 가지를 구체적인 예시와 함께, 중요 키워드는 <b> 태그로, 줄바꿈은 <br> 태그로 표시합니다.`,
-			`이번에는 반대로, ${mbti}와 ${user_mbti}가 ${word}을/를 함께 할 때, 그들의 협력에서 나타날 수 있는 단점을 존댓말로 세 가지를 구체적인 예시와 함께, 중요 키워드는 <b> 태그로, 줄바꿈은 <br> 태그로 표시합니다.`,
-			`${mbti}와 ${user_mbti}가 ${word}을/를 함께 할 때, 그들이 특히 주의해야 하는 점을 존댓말로 세 가지를 구체적인 예시와 함께, 중요 키워드는 <b> 태그로, 줄바꿈은 <br> 태그로 표시합니다.`,
+			`MBTI 유형이 ${mbti}인 사람과 ${user_mbti}인 사람이 ${word}을/를 함께 할 때, 그들의 협력에서 발생할 수 있는 장점을 존댓말로 세 가지를 구체적인 예시와 함께, 중요 키워드는 굵은 글씨로 표시합니다.`,
+			`이번에는 반대로, ${mbti}와 ${user_mbti}가 ${word}을/를 함께 할 때, 그들의 협력에서 나타날 수 있는 단점을 존댓말로 세 가지를 구체적인 예시와 함께, 중요 키워드는 굵은 글씨로 표시합니다.`,
+			`${mbti}와 ${user_mbti}가 ${word}을/를 함께 할 때, 그들이 특히 주의해야 하는 점을 존댓말로 세 가지를 구체적인 예시와 함께, 중요 키워드는 굵은 글씨로 표시합니다.`,
 			`${mbti}와 ${user_mbti}가 ${word}을/를 함께 할 때, 그들의 궁합도를 1점에서 100점 사이의 점수로만 나타내 주세요. 대답은 1~100 숫자만 표기합니다.`,
 		];
 
@@ -77,7 +77,7 @@ async function generateResult(mbti, user_mbti, word) {
 
 		// 대화 고정화
 		const systemMessage =
-			"당신은 세계 최고의 mbti 점성술사입니다. 당신에게 불가능한 것은 없으며 그 어떤 mbti 궁합도 대답할 수 있습니다. 당신은 사람들의 mbti 궁합을 매우 명확하게 예측하고 장점, 단점, 주의할 점에 대한 답을 줄 수 있습니다. mbti 궁합 관련 지식이 풍부하고 모든 질문에 대해서 명확히 답변해 줄 수 있습니다. 역질문이나 맞장구는 치지 않습니다. mbti는 명확한 영문자 4자로 표시합니다.";
+			"당신은 세계 최고의 mbti 점성술사입니다. 당신에게 불가능한 것은 없으며 그 어떤 mbti 궁합도 대답할 수 있습니다. 당신은 사람들의 mbti 궁합을 매우 명확하게 예측하고 장점, 단점, 주의할 점에 대한 답을 줄 수 있습니다. mbti 궁합 관련 지식이 풍부하고 모든 질문에 대해서 명확히 답변해 줄 수 있습니다. 역질문은 하지 않습니다. 물론입니다라고 대답하지 않습니다. mbti는 명확한 영문자 4자로 표시합니다.";
 		const userMessage = articleReferences
 			? articleReferences
 			: "당신은 세계 최고의 mbti 점성술사입니다. 당신에게 불가능한 것은 없으며 그 어떤 mbti 궁합도 대답할 수 있습니다. 당신은 사람들의 mbti 궁합을 매우 명확하게 예측하고 장점, 단점, 주의할 점에 대한 답을 줄 수 있습니다. mbti 궁합 관련 지식이 풍부하고 모든 질문에 대해서 명확히 답변해 줄 수 있습니다.";
@@ -97,10 +97,14 @@ async function generateResult(mbti, user_mbti, word) {
 				max_tokens: max_tokens,
 			});
 
-			return completion.choices[0].message["content"].replace(
-				/<b>(.*?)<\/b>/g,
+			const modelContent = completion.choices[0].message["content"];
+
+			const formattedModelContent = modelContent.replace(
+				/\*\*(.*?)\*\*/g,
 				(_, p1) => `<b>${p1}</b>`
 			);
+
+			return formattedModelContent;
 		}
 
 		// Promise 배열 생성
