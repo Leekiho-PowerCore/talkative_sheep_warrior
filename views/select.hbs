@@ -343,16 +343,13 @@
       var overlay = document.getElementById('overlay');
       var loading = document.getElementById('loading');
 
-      overlay.style.display = 'block';
-      overlay.classList.add('d-flex');  // d-flex 클래스 추가
-      loading.style.display = 'block';
-
-      setTimeout(function () {   // setTimeout 함수를 사용하여 1초의 지연시간 후 overlay와 loading 숨기기
-        overlay.style.display = 'none';
-        overlay.classList.remove('d-flex');  // d-flex 클래스 제거
-        loading.style.display = 'none';
+      setTimeout(function () {   // setTimeout 함수를 사용하여 1초의 지연시간을 추가
+        overlay.style.display = 'block';
+        overlay.classList.add('d-flex');  // d-flex 클래스 추가
+        loading.style.display = 'block';
       }, 500);  // 1초 지연시간 (1000밀리초 = 1초)
     });
+
 
   </script>
   <script>
