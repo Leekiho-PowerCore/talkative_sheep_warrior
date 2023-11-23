@@ -16,18 +16,18 @@ router.get("/register", (req, res) => {
 });
 
 // router.get("/result", filter.isLoggedIn, async (req, res) => {
-// 	try {
-// 		console.log(req.user);
-// 		const user_id = req.user.user_id;
-// 		const userData = await authController.getUserDataByUserId(user_id);
-// 		res.render("result", {
-// 			user: req.user,
-// 			compatibility: userData[0],
-// 		});
-// 	} catch (err) {
-// 		console.error(err);
-// 		res.status(500).send("Server Error");
-// 	}
+// try {
+// console.log(req.user);
+// const user_id = req.user.user_id;
+// const userData = await authController.getUserDataByUserId(user_id);
+// res.render("result", {
+// user: req.user,
+// compatibility: userData[0],
+// });
+// } catch (err) {
+// console.error(err);
+// res.status(500).send("Server Error");
+// }
 // });
 
 router.get("/login", (req, res) => {
@@ -35,19 +35,19 @@ router.get("/login", (req, res) => {
 });
 
 // router.get("/profile", filter.isLoggedIn, (req, res) => {
-// 	if (req.user) {
-// 		res.render("profile", {
-// 			user: req.user,
-// 		});
-// 	} else {
-// 		res.redirect("/login");
-// 	}
+// if (req.user) {
+// res.render("profile", {
+// user: req.user,
+// });
+// } else {
+// res.redirect("/login");
+// }
 // });
 
 // router.get("/select", filter.isLoggedIn, (req, res) => {
-// 	res.render("select", {
-// 		user: req.user,
-// 	});
+// res.render("select", {
+// user: req.user,
+// });
 // });
 
 router.get("/openkakao", filter.isLoggedIn, async (req, res) => {
@@ -113,6 +113,67 @@ router.get("/dashboard", filter.isLoggedIn, async (req, res) => {
 	}
 });
 
+router.delete("/deleteCategory", async (req, res) => {
+	try {
+		const { category_id } = req.body;
+		await dash.deleteCategory(category_id);
+	} catch (error) {
+		console.log(error);
+	}
+});
+
+router.post("/insertCategory", async (req, res) => {
+	try {
+		const { category_name } = req.body;
+		await dash.insertCategory(category_name);
+	} catch (error) {
+		console.log(error);
+	}
+});
+
+router.post("/getCategory", async (req, res) => {
+	const { category_name } = req.body;
+	const category = await dash.getCategory(category_name);
+	if (category) {
+		return res.json({ isExist: true });
+	} else {
+		return res.json({ isExist: false });
+	}
+});
+
+router.delete("/deleteCompatibility", async (req, res) => {
+	try {
+		const { compatibility_id } = req.body;
+		await dash.deleteCompatibility(compatibility_id);
+	} catch (error) {
+		console.log(error);
+	}
+});
+router.delete("/deleteOpenkakao", async (req, res) => {
+	try {
+		const { openkakao_id } = req.body;
+		await dash.deleteOpenkakao(openkakao_id);
+	} catch (error) {
+		console.log(error);
+	}
+});
+router.delete("/deleteRating", async (req, res) => {
+	try {
+		const { compatibility_id } = req.body;
+		await dash.deleteRating(compatibility_id);
+	} catch (error) {
+		console.log(error);
+	}
+});
+router.delete("/deleteUser", async (req, res) => {
+	try {
+		const { user_id } = req.body;
+		await dash.deleteUser(user_id);
+	} catch (error) {
+		console.log(error);
+	}
+});
+
 router.get("/result", filter.isLoggedIn, async (req, res) => {
 	try {
 		if (req.user) {
@@ -153,11 +214,11 @@ router.get("/profile", filter.isLoggedIn, (req, res) => {
 });
 
 router.get("/select", filter.isLoggedIn, async (req, res) => {
-  const categoryList = await authController.getCategoryList(); // 카테고리 목록을 가져옵니다.
+	const categoryList = await authController.getCategoryList(); // 카테고리 목록을 가져옵니다.
 	if (req.user) {
 		res.render("select", {
 			user: req.user,
-      category: categoryList,
+			category: categoryList,
 		});
 	} else {
 		res.redirect("/login");
@@ -165,32 +226,32 @@ router.get("/select", filter.isLoggedIn, async (req, res) => {
 });
 
 // router.get('/openkakao', filter.isLoggedIn, async (req, res) => {
-//   try {
-//     if (req.user) {
-//       const results = await authController.getOpenkakaoData();
-//       res.render("openkakao", {
-//         items: results,
-//       });
-//     } else {
-//       res.redirect("/login");
-//     }
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).send('Server Error');
-//   }
+// try {
+// if (req.user) {
+// const results = await authController.getOpenkakaoData();
+// res.render("openkakao", {
+// items: results,
+// });
+// } else {
+// res.redirect("/login");
+// }
+// } catch (err) {
+// console.error(err);
+// res.status(500).send('Server Error');
+// }
 // });
 
 //오픈카톡디비에서 가져오기
 // router.post("/openkakao", filter.isLoggedIn, async (req, res) => {
-// 	try {
-// 		const data = req.body; // 요청 본문에서 데이터를 가져옵니다.
-// 		const results = await authController.addOpenkakaoData(data);
-// 		//const page = await dash.getTopList(page);
-// 		res.status(200).send("Data inserted successfully");
-// 	} catch (err) {
-// 		console.error(err);
-// 		res.status(500).send("Server Error");
-// 	}
+// try {
+// const data = req.body; // 요청 본문에서 데이터를 가져옵니다.
+// const results = await authController.addOpenkakaoData(data);
+// //const page = await dash.getTopList(page);
+// res.status(200).send("Data inserted successfully");
+// } catch (err) {
+// console.error(err);
+// res.status(500).send("Server Error");
+// }
 // });
 
 //오픈카톡디비에 추가하기
