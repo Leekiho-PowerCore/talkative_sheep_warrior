@@ -20,13 +20,13 @@
   <!-- Core theme CSS (includes Bootstrap)-->
   <link href="css/styles.css" rel="stylesheet" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet">
-  <style>
-    * {
-      font-family: 'IBM Plex Sans KR', sans-serif;
-    }
-  </style>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet">
+<style>
+* {
+            font-family: 'IBM Plex Sans KR', sans-serif;
+        }
+</style>
   <style>
     .custom-button {
       transition: transform 1.0s;
@@ -342,15 +342,10 @@
       // Submit 버튼 클릭 시 로딩 표시 보이기
       var overlay = document.getElementById('overlay');
       var loading = document.getElementById('loading');
-
-      setTimeout(function () {   // setTimeout 함수를 사용하여 1초의 지연시간을 추가
-        overlay.style.display = 'block';
-        overlay.classList.add('d-flex');  // d-flex 클래스 추가
-        loading.style.display = 'block';
-      }, 500);  // 1초 지연시간 (1000밀리초 = 1초)
+      overlay.style.display = 'block';
+      overlay.classList.add('d-flex');  // d-flex 클래스 추가
+      loading.style.display = 'block';
     });
-
-
   </script>
   <script>
     $(document).ready(function () {

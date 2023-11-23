@@ -181,7 +181,10 @@ exports.generate = async (req, res) => {
 	} catch (error) {
 		console.error("생성 중 오류 발생:", error.message);
 	}
-	return res.redirect("/result");
+	setTimeout(() => {
+		return res.redirect("/result");
+	  }, 500);
+	  
 };
 
 exports.getOpenkakaoList2 = async (page, mbti) => {
