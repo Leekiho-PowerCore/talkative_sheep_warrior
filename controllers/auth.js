@@ -146,17 +146,15 @@ exports.logout = async (req, res) => {
 };
 
 exports.generate = async (req, res) => {
-	let decoded; // Declare decoded variable outside the try block
+	let decoded; 
 	try {
 		if (req.cookies.jwt) {
-			// Verify the token
 			decoded = await promisify(jwt.verify)(
 				req.cookies.jwt,
 				process.env.JWT_SECRET
 			);
 		}
 		if (!decoded) {
-			// Handle the case where the token is not valid or doesn't exist
 			return res.status(401).send("Unauthorized");
 		}
 		console.log(decoded.user_id);
@@ -186,16 +184,6 @@ exports.generate = async (req, res) => {
 	return res.redirect("/result");
 };
 
-// exports.getOpenkakaoData = function () {
-// 	return new Promise((resolve, reject) => {
-// 		var sql = `SELECT * FROM openkakao`;
-// 		connection.query(sql, function (err, results) {
-// 			if (err) reject(err);
-// 			resolve(results);
-// 		});
-// 	});
-// };
-
 exports.getOpenkakaoList2 = async (page, mbti) => {
 	try {
 		const perPage = 5;
@@ -208,7 +196,6 @@ exports.getOpenkakaoList2 = async (page, mbti) => {
 				connection.query(
 					`select * from openkakao where mbti like "%${mbti}%" order by openkakao_id desc limit ${offset}, ${perPage}`,
 					(error, rows) => {
-						//console.log("rows: ", rows);
 						if (error) {
 							reject(error);
 						} else {
@@ -281,14 +268,12 @@ exports.score = async (req, res) => {
 	let decoded;
 	const { score } = req.body;
 	if (req.cookies.jwt) {
-		// Verify the token
 		decoded = await promisify(jwt.verify)(
 			req.cookies.jwt,
 			process.env.JWT_SECRET
 		);
 	}
 	console.log(score);
-	// Check if score and user_id are valid
 	if (score == null || isNaN(score) || !decoded || !decoded.user_id) {
 		console.error("Invalid score or user_id");
 		return res.status(400).send("Invalid score or user_id");
@@ -336,7 +321,6 @@ exports.score = async (req, res) => {
 						return res.status(500).send("Database get ID error");
 					}
 
-					// If score is 4 or 5, copy all data from this compatibility_id to another table
 					if (score == 4 || score == 5) {
 						const copySql = `
           INSERT INTO rating
@@ -358,7 +342,6 @@ exports.score = async (req, res) => {
 				}
 			);
 
-			// If successful, redirect to result page
 			res.redirect("/openkakao");
 		}
 	);

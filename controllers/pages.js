@@ -15,40 +15,9 @@ router.get("/register", (req, res) => {
 	res.render("register");
 });
 
-// router.get("/result", filter.isLoggedIn, async (req, res) => {
-// try {
-// console.log(req.user);
-// const user_id = req.user.user_id;
-// const userData = await authController.getUserDataByUserId(user_id);
-// res.render("result", {
-// user: req.user,
-// compatibility: userData[0],
-// });
-// } catch (err) {
-// console.error(err);
-// res.status(500).send("Server Error");
-// }
-// });
-
 router.get("/login", (req, res) => {
 	res.render("login");
 });
-
-// router.get("/profile", filter.isLoggedIn, (req, res) => {
-// if (req.user) {
-// res.render("profile", {
-// user: req.user,
-// });
-// } else {
-// res.redirect("/login");
-// }
-// });
-
-// router.get("/select", filter.isLoggedIn, (req, res) => {
-// res.render("select", {
-// user: req.user,
-// });
-// });
 
 router.get("/openkakao", filter.isLoggedIn, async (req, res) => {
 	try {
@@ -77,7 +46,6 @@ router.get("/openkakao", filter.isLoggedIn, async (req, res) => {
 	}
 });
 
-//재이수정
 router.get("/dashboard", filter.isLoggedIn, async (req, res) => {
 	try {
 		const page = parseInt(req.query.page) || 1;
@@ -194,10 +162,9 @@ router.get("/result", filter.isLoggedIn, async (req, res) => {
 });
 router.get("/profile", filter.isLoggedIn, (req, res) => {
 	if (req.user) {
-		// 서버의 시간대를 고려하여 Date 객체를 문자열로 변환하여 'YYYY-MM-DD' 형식으로 만듭니다.
 		const rawDate = new Date(req.user.age);
 		const year = rawDate.getFullYear();
-		const month = String(rawDate.getMonth() + 1).padStart(2, "0"); // 월은 0부터 시작하므로 +1이 필요하며, 두 자리로 표시하려면 padStart를 사용합니다.
+		const month = String(rawDate.getMonth() + 1).padStart(2, "0"); 
 		const day = String(rawDate.getDate()).padStart(2, "0");
 
 		const formattedUser = {
@@ -214,7 +181,7 @@ router.get("/profile", filter.isLoggedIn, (req, res) => {
 });
 
 router.get("/select", filter.isLoggedIn, async (req, res) => {
-	const categoryList = await authController.getCategoryList(); // 카테고리 목록을 가져옵니다.
+	const categoryList = await authController.getCategoryList(); 
 	if (req.user) {
 		res.render("select", {
 			user: req.user,
@@ -225,36 +192,6 @@ router.get("/select", filter.isLoggedIn, async (req, res) => {
 	}
 });
 
-// router.get('/openkakao', filter.isLoggedIn, async (req, res) => {
-// try {
-// if (req.user) {
-// const results = await authController.getOpenkakaoData();
-// res.render("openkakao", {
-// items: results,
-// });
-// } else {
-// res.redirect("/login");
-// }
-// } catch (err) {
-// console.error(err);
-// res.status(500).send('Server Error');
-// }
-// });
-
-//오픈카톡디비에서 가져오기
-// router.post("/openkakao", filter.isLoggedIn, async (req, res) => {
-// try {
-// const data = req.body; // 요청 본문에서 데이터를 가져옵니다.
-// const results = await authController.addOpenkakaoData(data);
-// //const page = await dash.getTopList(page);
-// res.status(200).send("Data inserted successfully");
-// } catch (err) {
-// console.error(err);
-// res.status(500).send("Server Error");
-// }
-// });
-
-//오픈카톡디비에 추가하기
 router.post("/addData", async (req, res) => {
 	const data = {
 		mbti: req.body.mbti,
@@ -265,7 +202,7 @@ router.post("/addData", async (req, res) => {
 
 	try {
 		await authController.addOpenkakaoData(data);
-		res.redirect("/openkakao"); // 데이터 추가 후 원하는 페이지로 리다이렉트
+		res.redirect("/openkakao"); 
 	} catch (err) {
 		console.error(err);
 		res.status(500).send("Server Error");

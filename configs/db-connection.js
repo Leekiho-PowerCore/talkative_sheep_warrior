@@ -8,7 +8,7 @@ const connection = mysql.createConnection({
 	user: process.env.DATABASE_USER,
 	port: process.env.DATABASE_PORT,
 	password: process.env.DATABASE_PASSWORD,
-	database: process.env.DATABASE, // 이거 env에 다 숨시는거
+	database: process.env.DATABASE, 
 	charset: "utf8mb4",
 });
 
@@ -17,7 +17,7 @@ const connection2 = mysql2.createConnection({
 	user: process.env.DATABASE_USER,
 	port: process.env.DATABASE_PORT,
 	password: process.env.DATABASE_PASSWORD,
-	database: process.env.DATABASE, // 이거 env에 다 숨시는거
+	database: process.env.DATABASE, 
 	charset: "utf8mb4",
 });
 
