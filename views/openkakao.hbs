@@ -12,7 +12,9 @@
     <!-- Custom Google font-->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
     <!-- Bootstrap icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
@@ -24,13 +26,11 @@
         * {
             font-family: 'IBM Plex Sans KR', sans-serif;
         }
-
     </style>
     <style>
         .btn-warning {
             background: #ffd862bd !important;
         }
-
     </style>
 </head>
 
@@ -41,16 +41,19 @@
             <div class="container px-5">
                 <a class="navbar-brand" href="/"><span class="fw-bolder text-primary">
                         GPTI</span></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation"><span
+                        class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
                         <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
                         {{#if user }}
-                            <li class="nav-item"><a class="nav-link" href="/profile">Profile</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/profile">Profile</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
                         {{else}}
-                            <li class="nav-item"><a class="nav-link" href="/login">login</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/login">login</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
                         {{/if}}
                     </ul>
                 </div>
@@ -67,13 +70,16 @@
                         <!-- Modal Trigger Button -->
                         <div class="justify-content-center row mt-lg-5 mt-4 mb-3">
                             <div class="align-items-center col-12 d-flex justify-content-between mt-3">
-                                <button type="button" class="btn btn-outline-primary btn-sm col-3 mb-2" data-bs-toggle="modal" data-bs-target="#dataInputModal">
+                                <button type="button" class="btn btn-outline-primary btn-sm col-3 mb-2"
+                                    data-bs-toggle="modal" data-bs-target="#dataInputModal">
                                     내 링크 만들기
                                 </button>
                                 <form id="mbtiForm">
                                     <div class="d-flex justify-content-end">
-                                        <button type="submit" class="btn btn-outline-dark btn-sm mx-2 text-nowrap">전체보기</button>
-                                        <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="selectMbti">
+                                        <button type="submit"
+                                            class="btn btn-outline-dark btn-sm mx-2 text-nowrap">전체보기</button>
+                                        <select class="form-select form-select-sm" aria-label=".form-select-sm example"
+                                            id="selectMbti">
                                             <option value="" selected disabled hidden>정렬</option>
                                             <option value="ENFJ" {{#if (eq mbti "ENFJ" )}} selected{{/if}}>ENFJ</option>
                                             <option value="ENFP" {{#if (eq mbti "ENFP" )}} selected{{/if}}>ENFP</option>
@@ -98,55 +104,58 @@
                     </div>
                     <!-- Project Card 1-->
                     {{#each items}}
-                        <div class="card overflow-hidden shadow rounded-4 border-0 mb-3">
-                            <div class="card-body p-0">
-                                <div class="align-items-center">
-                                    <div class="p-1">
-                                        <div class="card-body">
-                                            <div class="justify-content-center pb-2 pt-2 row">
-                                                <div class="col-11 d-flex align-items-center justify-content-between mt-3">
-                                                    <h3 class="card-title col-10">{{this.intro}}</h3>
-                                                    <a href="{{this.kakao_address}}" class="btn btn-warning col-2 fw-bold p-3 text-dark w-auto">kakao</a>
-                                                </div>
-                                                <p class="card-text col-11">{{this.mbti}} / {{this.main_category}}</p>
+                    <div class="card overflow-hidden shadow rounded-4 border-0 mb-3">
+                        <div class="card-body p-0">
+                            <div class="align-items-center">
+                                <div class="p-1">
+                                    <div class="card-body">
+                                        <div class="justify-content-center pb-2 pt-2 row">
+                                            <div class="col-11 d-flex align-items-center justify-content-between mt-3">
+                                                <h3 class="card-title col-10">{{this.intro}}</h3>
+                                                <a href="{{this.kakao_address}}"
+                                                    class="btn btn-warning col-2 fw-bold p-3 text-dark w-auto">kakao</a>
                                             </div>
+                                            <p class="card-text col-11">{{this.mbti}} / {{this.main_category}}</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
                     {{/each}}
 
                     <nav aria-label="Page navigation example">
                         {{#with paginator}}
-                            <ul class="pagination justify-content-center">
-                                {{#if hasPrev}}
-                                    <li class="page-item">
-                                        <a class="page-link" href="/openkakao/?page={{prevPage}}&mbti={{@root.mbti}}">Previous</a>
+                        <ul class="pagination justify-content-center">
+                            {{#if hasPrev}}
+                            <li class="page-item">
+                                <a class="page-link"
+                                    href="/openkakao/?page={{prevPage}}&mbti={{@root.mbti}}">Previous</a>
                                 {{else}}
-                                    <li class="page-item disabled">
-                                        <a class="page-link" href="#">Previous</a>
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#">Previous</a>
                                 {{/if}}
-                                </li>
+                            </li>
 
-                                {{#each pageList}}
-                                    {{#if (eq . @root.paginator.page)}}
-                                        <li class="page-item active"><a class="page-link" href="#">{{.}}</a>
-                                    {{else}}
-                                        <li class="page-item"><a class="page-link" href="/openkakao/?page={{.}}&mbti={{@root.mbti}}">{{.}}</a>
-                                    {{/if}}
-                                    </li>
-                                {{/each}}
-
-                                {{#if hasNext}}
-                                    <li class="page-item">
-                                        <a class="page-link" href="/openkakao/?page={{nextPage}}&mbti={{@root.mbti}}">Next</a>
+                            {{#each pageList}}
+                            {{#if (eq . @root.paginator.page)}}
+                            <li class="page-item active"><a class="page-link" href="#">{{.}}</a>
                                 {{else}}
-                                    <li class="page-item disabled">
-                                        <a class="page-link" href="#">Next</a>
+                            <li class="page-item"><a class="page-link"
+                                    href="/openkakao/?page={{.}}&mbti={{@root.mbti}}">{{.}}</a>
                                 {{/if}}
-                                </li>
-                            </ul>
+                            </li>
+                            {{/each}}
+
+                            {{#if hasNext}}
+                            <li class="page-item">
+                                <a class="page-link" href="/openkakao/?page={{nextPage}}&mbti={{@root.mbti}}">Next</a>
+                                {{else}}
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#">Next</a>
+                                {{/if}}
+                            </li>
+                        </ul>
                         {{/with}}
                     </nav>
                 </div>
@@ -196,7 +205,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="kakao_address" class="form-label">오픈카톡 주소:</label>
-                            <input type="text" class="form-control" id="kakao_address" name="kakao_address" placeholder="ex) https://open.kakao.com/~~~~" required>
+                            <input type="text" class="form-control" id="kakao_address" name="kakao_address"
+                                placeholder="ex) https://open.kakao.com/~~~~" required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -228,8 +238,8 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $('select#selectMbti').change(function() {
+        $(document).ready(function () {
+            $('select#selectMbti').change(function () {
                 var selectedValue = $(this).val();
                 window.location.href = '/openkakao/?mbti=' + selectedValue;
 
@@ -250,6 +260,13 @@
                 return false;
             }
         }
+
+    </script>
+    <script>
+        window.history.pushState(null, document.title, window.location.href);
+        window.addEventListener('popstate', function (event) {
+            window.history.pushState(null, document.title, window.location.href);
+        });
 
     </script>
 </body>
