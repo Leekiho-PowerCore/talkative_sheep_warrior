@@ -12,7 +12,9 @@
     <!-- Custom Google font-->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
     <!-- Bootstrap icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
@@ -24,7 +26,6 @@
         * {
             font-family: 'IBM Plex Sans KR', sans-serif;
         }
-
     </style>
     <style>
         body {
@@ -166,7 +167,6 @@
         .select2 {
             width: 100% !important;
         }
-
     </style>
 </head>
 
@@ -177,16 +177,19 @@
             <div class="container px-5">
                 <a class="navbar-brand" href="/"><span class="fw-bolder text-primary">
                         GPTI</span></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation"><span
+                        class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
                         <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
                         {{#if user }}
-                            <li class="nav-item"><a class="nav-link" href="/profile">Profile</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/profile">Profile</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
                         {{else}}
-                            <li class="nav-item"><a class="nav-link" href="/login">login</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/login">login</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
                         {{/if}}
                     </ul>
                 </div>
@@ -203,9 +206,11 @@
                                     <div class="card-block text-center text-white">
                                         <div class="m-b-25">
                                             {{#if user.sex}}
-                                                <img src="../public/avatar_female.png" class="img-radius" alt="User-Profile-Image">
+                                            <img src="../public/avatar_female.png" class="img-radius"
+                                                alt="User-Profile-Image">
                                             {{else}}
-                                                <img src="../public/avatar_male.png" class="img-radius" alt="User-Profile-Image">
+                                            <img src="../public/avatar_male.png" class="img-radius"
+                                                alt="User-Profile-Image">
                                             {{/if}}
                                         </div>
                                         <h6 class="f-w-600 fs-4">{{user.name}}</h6>
@@ -233,7 +238,8 @@
                                             </div>
                                         </div>
                                         <div class="d-flex justify-content-end">
-                                            <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#editProfileModal">
+                                            <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal"
+                                                data-bs-target="#editProfileModal">
                                                 프로필 수정
                                             </button>
                                         </div>
@@ -250,7 +256,8 @@
 
 
     <!-- Modal -->
-    <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -287,7 +294,8 @@
                             </div>
                             <div class="col-10 mb-3">
                                 <label for="age" class="form-label">생년월일</label>
-                                <input type="date" class="form-control" id="age" name="age" value="{{user.age}}" required>
+                                <input type="date" class="form-control" id="age" name="age" value="{{user.age}}"
+                                    required>
                             </div>
                             <div class="col-10 mb-3">
                                 <label for="sex" class="form-label">성별</label>
@@ -327,7 +335,7 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
     <script>
-        window.onload = function() {
+        window.onload = function () {
             var sex = "{{user.sex}}";
             var selectElement = document.getElementById('sex');
             selectElement.value = sex;
@@ -339,12 +347,12 @@
 
     </script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             var today = new Date().toISOString().split("T")[0];
             document.getElementById("age").max = today;
         });
 
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#mbti').select2({
                 dropdownParent: $('#myModal')
             });
