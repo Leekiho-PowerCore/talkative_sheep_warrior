@@ -12,7 +12,7 @@ const connection = mysql.createConnection({
 	charset: "utf8mb4",
 });
 
-const connection2 = mysql2.createConnection({
+const connection2 = mysql.createConnection({
 	host: process.env.DATABASE_HOST,
 	user: process.env.DATABASE_USER,
 	port: process.env.DATABASE_PORT,
