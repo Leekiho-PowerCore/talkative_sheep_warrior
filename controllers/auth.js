@@ -28,7 +28,7 @@ exports.login = async (req, res) => {
           !(await bcrypt.compare(password, result[0].password))
         ) {
           res.status(401).render("login", {
-            message: "Id or Password is incorrect",
+            message: "아이디 혹은 비밀번호가 정확하지 않습니다.",
           });
         } else {
           const user_id = result[0].user_id;
